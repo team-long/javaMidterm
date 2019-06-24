@@ -1,4 +1,4 @@
-package com.team.long.java401d.midterm.troublemaker;
+package com.teamLong.java401d.midterm.troublemaker.long.java401d.midterm.troublemaker;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

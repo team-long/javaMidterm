@@ -1,4 +1,4 @@
-package com.team.long.java401d.midterm.troublemaker;
+package com.teamLong.java401d.midterm.troublemaker;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
