@@ -1,6 +1,7 @@
 package com.teamLong.java401d.midterm.troublemaker.config;
 
 import com.fasterxml.jackson.databind.annotation.JsonAppend;
+import com.teamLong.java401d.midterm.troublemaker.service.UserDetailsServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,13 +16,22 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private UserDetailsServiceImplementation userDetailsService;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        return bCryptPasswordEncoder;
+        return new BCryptPasswordEncoder();
     }
+
+    @Override
+    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }
+
+    @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http
                 .cors().disable()
@@ -34,7 +44,17 @@ public class WebSecurityConfig {
                 .loginPage("/login")
                 .and()
                 .logout();
+//
+//        http.formLogin().defaultSuccessUrl("/myprofile", true);
+    }
 
-        http.formLogin().defaultSuccessUrl("/myprofile", true);
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+    @Bean
+    public UserDetailsServiceImplementation getUserDetailsService() {
+        return new UserDetailsServiceImplementation();
     }
 }
