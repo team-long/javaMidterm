@@ -1,5 +1,6 @@
 package com.teamLong.java401d.midterm.troublemaker;
 
+import com.teamLong.java401d.midterm.troublemaker.controller.UserAccountController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class TroublemakerApplicationTests {
 	@AutoConfigureMockMvc
 	public class UserControllerTest {
 		@Autowired
-		UserController userController;
+		UserAccountController userAccountController;
 
 		@Autowired
 		MockMvc mockMvc;
@@ -33,7 +34,7 @@ public class TroublemakerApplicationTests {
 
 		@Test
 		public void testControllerIsAutowired(){
-			assertNotNull(userController);
+			assertNotNull(userAccountController);
 		}
 
 		@Test
