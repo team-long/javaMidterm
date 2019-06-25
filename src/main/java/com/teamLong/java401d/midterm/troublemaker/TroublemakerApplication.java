@@ -1,7 +1,9 @@
-package com.teamLong.java401d.midterm.troublemaker.repository;
+package com.teamLong.java401d.midterm.troublemaker;
 
 import com.teamLong.java401d.midterm.troublemaker.model.RoleType;
 import com.teamLong.java401d.midterm.troublemaker.model.UserAccount;
+import com.teamLong.java401d.midterm.troublemaker.repository.RoleRepository;
+import com.teamLong.java401d.midterm.troublemaker.repository.UserRepository;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;

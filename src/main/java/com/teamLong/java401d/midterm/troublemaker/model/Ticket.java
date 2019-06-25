@@ -11,12 +11,12 @@ public class Ticket {
 
     LocalDateTime createdAt;
     short severity;
-    String creator;
+    UserAccount creator;
     String summary;
 
     public Ticket(){}
 
-    public Ticket(short severity, String creator, String summary){
+    public Ticket(short severity, UserAccount creator, String summary){
         this.createdAt = LocalDateTime.now();
         this.severity = severity;
         this.creator = creator;
@@ -41,7 +41,7 @@ public class Ticket {
         return severity;
     }
 
-    public String getCreator() {
+    public UserAccount getCreator() {
         return creator;
     }
 

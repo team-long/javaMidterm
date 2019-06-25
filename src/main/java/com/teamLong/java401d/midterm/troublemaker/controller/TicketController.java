@@ -1,6 +1,8 @@
 package com.teamLong.java401d.midterm.troublemaker.controller;
 
+import com.teamLong.java401d.midterm.troublemaker.model.Ticket;
 import com.teamLong.java401d.midterm.troublemaker.model.UserAccount;
+import com.teamLong.java401d.midterm.troublemaker.repository.TicketRepository;
 import com.teamLong.java401d.midterm.troublemaker.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +29,7 @@ public class TicketController {
     @PostMapping("/create/ticket")
     public RedirectView makeATicket(String summary, short severity, Principal p){
         UserAccount user = userRepository.findByUsername(p.getName());
-        Ticket ticket = new Ticket(summary, severity, user);
+        Ticket ticket = new Ticket(severity, user, summary);
         ticketRepository.save(ticket);
         return new RedirectView("/profile");
     }
