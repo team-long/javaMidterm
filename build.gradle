@@ -21,14 +21,25 @@ repositories {
 }
 
 dependencies {
+<<<<<<< HEAD
 //	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 //	implementation 'org.springframework.boot:spring-boot-starter-security'
+=======
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+>>>>>>> d1aa46140b1d76bff88e15b8975031d63a908e59
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-//	runtimeOnly 'org.postgresql:postgresql'
+	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+<<<<<<< HEAD
 //	testImplementation 'org.springframework.security:spring-security-test'
 
 	implementation('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile 'org.thymeleaf.extras:thymeleaf-extras-springsecurity4:3.0.4.RELEASE' // For SpringSecurityDialect
+=======
+	testImplementation 'org.springframework.security:spring-security-test'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	compile 'org.thymeleaf.extras:thymeleaf-extras-springsecurity4:3.0.4.RELEASE'
+>>>>>>> d1aa46140b1d76bff88e15b8975031d63a908e59
 }
