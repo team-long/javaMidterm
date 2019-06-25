@@ -24,8 +24,8 @@ public class Ticket {
     }
 
 //    database relation
-    @ManyToOne
-    UserAccount creator;
+//    @ManyToOne
+//    UserAccount creator;
 
     //getters & setters
 

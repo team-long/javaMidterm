@@ -1,5 +1,7 @@
 package com.teamLong.java401d.midterm.troublemaker.controller;
 
+import com.teamLong.java401d.midterm.troublemaker.model.UserAccount;
+import com.teamLong.java401d.midterm.troublemaker.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
