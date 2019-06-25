@@ -1,0 +1,72 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link href="/index.css" rel="stylesheet" />
+    <link href="/main.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css}"  media="screen,projection"/>
+
+</head>
+
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+<main>
+    <center>
+        <!--<div th:if="${shouldShowExtraMessage}">-->
+            <!--You got the secret message-->
+        <!--</div>-->
+        <div class="section"></div>
+
+        <h5 class="indigo-text">Login into your account</h5>
+        <div class="section"></div>
+
+        <div class="container">
+            <div class="z-depth-1 grey lighten-4 row loginWindow">
+
+                <form action="/login" class="col s12" method="post">
+                    <div class='row'>
+                        <div class='col s12'>
+                        </div>
+                    </div>
+
+                    <div class='row'>
+                        <div class='input-field col s12'>
+                            <input class='validate' type='text' name='username' id='username' />
+                            <label for='username'>Enter your username</label>
+                        </div>
+                    </div>
+
+                    <div class='row'>
+                        <div class='input-field col s12'>
+                            <input class='validate' type='password' name='password' id='password' />
+                            <label for='password'>Enter your password</label>
+                        </div>
+                        <label style='float: right;'>
+                            <a class='pink-text' href='#!'><b>Forgot Password?</b></a>
+                        </label>
+                    </div>
+
+                    <br />
+                    <center>
+                        <div class='row'>
+                            <button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect indigo'>Login</button>
+                        </div>
+                    </center>
+                </form>
+            </div>
+        </div>
+        <a class="ticketLink" href="/signup">Create account</a><br>
+    </center>
+</main>
+<footer class="footer">
+    <!--<div>-->
+        <!--<p class="text-muted"><footer th:replace="fragments/footer :: footer" role="footer"></footer></p>-->
+    <!--</div>-->
+</footer>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+</body>
+
+</html>
