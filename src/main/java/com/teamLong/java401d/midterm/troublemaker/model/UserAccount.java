@@ -2,15 +2,14 @@ package com.teamLong.java401d.midterm.troublemaker.model;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name="userAccounts")
@@ -35,28 +34,23 @@ public class UserAccount implements UserDetails{
 
     private String team;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "UserRoles",
             joinColumns = @JoinColumn(
                     name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "id"))
-    private List<RoleType> roleTypes;
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
+    private Set<RoleType> roleTypes = new HashSet<RoleType>();
 
     @Override
     public String getPassword() {
-        return null;
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return this.username;
     }
 
     @Override
@@ -127,11 +121,18 @@ public class UserAccount implements UserDetails{
         this.team = team;
     }
 
-    public List<RoleType> getRoleTypes() {
+    public Set<RoleType> getRoleTypes() {
         return roleTypes;
     }
 
-    public void setRoleTypes(List<RoleType> roleTypes) {
+    public void setRoleTypes(Set<RoleType> roleTypes) {
         this.roleTypes = roleTypes;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
+        roleTypes.forEach(roleType -> roles.add(new SimpleGrantedAuthority("role_" + roleType.getRole())));
+        return roles;
     }
 }
