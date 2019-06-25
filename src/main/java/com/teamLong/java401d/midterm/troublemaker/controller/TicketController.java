@@ -33,4 +33,6 @@ public class TicketController {
         ticketRepository.save(ticket);
         return new RedirectView("/profile");
     }
+
+    //all tickets user route
 }

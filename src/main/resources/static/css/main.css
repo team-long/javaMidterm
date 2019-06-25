@@ -1,0 +1,79 @@
+body {
+    min-height: 100%;
+    min-height: 100vh;
+    background: #F0F0F0;
+}
+
+.main1 {
+    margin-top: 15px;
+}
+
+#main1button{
+    text-align:right;
+}
+
+.input-field input:focus + label {
+	color: #232f3e !important;
+}
+
+.row .input-field input:focus {
+	border-bottom: 1px solid #232f3e !important;
+
+}
+
+.class {
+     margin-top: 20px;
+     padding: 20px;
+}
+
+.navbar {
+	background-color: #232f3e !important;
+}
+
+footer {
+    background-color: #232f3e !important;
+}
+
+.secondary-content {
+	border: hidden;
+}
+
+#alltickets {
+
+}
+
+@media screen and (min-width: 601px) {
+	div.mobilefriendlytext {
+	    text-align:center;
+        font-size: 25px;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	div.mobilefriendlytext {
+	    text-align:center;
+		font-size: 15px;
+	}
+}
+
+.btn {
+    background-color: #ff9900 !important;
+}
+.btn2 {
+    color: #ff9900 !important;
+    background-color: #fff !important;
+}
+
+.btn:hover {
+	background-color: #ffd699 !important;
+}
+.btn2:hover {
+	color: #ffd699 !important;
+}
+
+.ticketLink {
+
+}
+.ticketLink:hover {
+	color: #ff9900 !important;
+}
