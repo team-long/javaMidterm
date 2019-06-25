@@ -1,4 +1,4 @@
-package com.teamLong.java401d.midterm.troublemaker.Tickets;
+package com.teamLong.java401d.midterm.troublemaker.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
