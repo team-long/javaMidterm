@@ -12,6 +12,14 @@ body {
     text-align:right;
 }
 
+.input-field input:focus + label {
+	color: #232f3e !important;
+}
+
+.row .input-field input:focus {
+	border-bottom: 1px solid #232f3e !important;
+
+}
 
 .class {
      margin-top: 20px;
@@ -19,23 +27,11 @@ body {
 }
 
 .navbar {
-	background-color: #232f3e !important
+	background-color: #232f3e !important;
 }
 
 footer {
-    background-color: #232f3e !important
-}
-
-textarea#styled {
-    margin: 0px 30px;
-	width: 600px;
-	height: 400px;
-	border: 3px solid #cccccc;
-	padding: 5px;
-	font-family: Tahoma, sans-serif;
-	background-image: url(bg.gif);
-	background-position: bottom right;
-	background-repeat: no-repeat;
+    background-color: #232f3e !important;
 }
 
 .secondary-content {
