@@ -22,7 +22,7 @@ public class TicketController {
     @Autowired
     TicketRepository ticketRepository;
 
-    @GetMapping("/ticket")
+    @GetMapping("/create/ticket")
     public String createTicketPage(){
         return "ticket";
     }
@@ -42,7 +42,7 @@ public class TicketController {
         model.addAttribute("loggedInUser", loggedInUser);
         Iterable<Ticket> tickets = ticketRepository.findAll();
         model.addAttribute("tickets", tickets);
-        return "ticket-detail";
+        return "allTickets";
     }
 
 }
