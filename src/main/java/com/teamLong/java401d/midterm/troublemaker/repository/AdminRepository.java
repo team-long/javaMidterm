@@ -1,4 +1,4 @@
-package com.teamLong.java401d.midterm.troublemaker;
+package com.teamLong.java401d.midterm.troublemaker.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
