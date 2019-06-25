@@ -32,5 +32,9 @@ public class HomeController {
         return "admin";
     }
 
-
+    // open test route for main
+    @RequestMapping(value = "/main", method = RequestMethod.GET)
+    public String main(Principal user) {
+        return "main";
+    }
 }

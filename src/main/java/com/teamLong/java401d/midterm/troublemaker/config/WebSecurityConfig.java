@@ -45,8 +45,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .and()
                 .logout();
-//
-//        http.formLogin().defaultSuccessUrl("/myprofile", true);
+
+        http.formLogin().defaultSuccessUrl("/main", true);
     }
 
     @Override
