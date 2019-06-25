@@ -23,9 +23,9 @@ public class Ticket {
         this.summary = summary;
     }
 
-    //database relation
-//    @ManyToOne
-//    UserAccount creator;
+//    database relation
+    @ManyToOne
+    UserAccount creator;
 
     //getters & setters
 
