@@ -75,16 +75,16 @@ public class TicketController {
     }
 
 
-    @DeleteMapping("delete/ticket/{id}")
-    public RedirectView deleteTicket(@PathVariable long id, Principal principal, Model model){
-        Ticket ticket = ticketRepository.findById(id);
-        if(ticket.getCreator().getUsername().equals(principal.getName())){
-            ticketRepository.deleteById(id);
-        } else {
-            throw new TicketDoesNotBelongToYou("There is only one thing we say to death. Not today.\n You do not own this ticket");
-        }
-        return new RedirectView("/main");
-    }
+//    @DeleteMapping("delete/ticket/{id}")
+//    public RedirectView deleteTicket(@PathVariable long id, Principal principal, Model model){
+//        Ticket ticket = ticketRepository.findById(id);
+//        if(ticket.getCreator().getUsername().equals(principal.getName())){
+//            ticketRepository.deleteById(id);
+//        } else {
+//            throw new TicketDoesNotBelongToYou("There is only one thing we say to death. Not today.\n You do not own this ticket");
+//        }
+//        return new RedirectView("/main");
+//    }
 
 }
 
