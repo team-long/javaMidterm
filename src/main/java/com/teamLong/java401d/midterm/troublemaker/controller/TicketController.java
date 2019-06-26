@@ -1,5 +1,6 @@
 package com.teamLong.java401d.midterm.troublemaker.controller;
 
+import com.teamLong.java401d.midterm.troublemaker.model.Severity;
 import com.teamLong.java401d.midterm.troublemaker.model.Ticket;
 import com.teamLong.java401d.midterm.troublemaker.model.UserAccount;
 import com.teamLong.java401d.midterm.troublemaker.repository.TicketRepository;
@@ -12,10 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
-
-import javax.print.attribute.standard.Severity;
 import java.security.Principal;
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
 
 @Controller
 public class TicketController {
@@ -27,8 +28,9 @@ public class TicketController {
     TicketRepository ticketRepository;
 
     @GetMapping("/ticket")
-    public String createTicketPage(){
-
+    public String createTicketPage(Model model){
+        List<Enum> enumValues = new ArrayList<Enum>(EnumSet.allOf(Severity.class));
+        model.addAttribute("enumValues", enumValues);
         return "ticket";
     }
 
@@ -40,10 +42,10 @@ public class TicketController {
     }
 
     @PostMapping("/create/ticket")
-    public RedirectView makeATicket(String summary, String severity, Principal p){
+    public RedirectView makeATicket(String summary, Severity ticketLvl, Principal p){
         UserAccount user = userRepository.findByUsername(p.getName());
-        Ticket ticket = new Ticket(severity, user, summary);
-        ticketRepository.save(new Ticket(severity, user, summary));
+        Ticket ticket = new Ticket(ticketLvl, user, summary);
+        ticketRepository.save(new Ticket(ticketLvl, user, summary));
         return new RedirectView("/profile");
     }
 

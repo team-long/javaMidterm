@@ -15,8 +15,11 @@
 <body>
     <div th:replace="fragments/header :: header"></div>
     <h1>Create a Ticket</h1>
-    <form action="/create/ticket" method="post">
-        <label for="severity">Severity</label><input name="severity" id="severity" type="number" min="1" max="5">
+    <form action="/create/ticket" method="post" id="ticket">
+        <label form="severity">Severity</label>
+        <select form="ticket" name="ticketLvl" id="severity" style="display:inline">
+        <option th:each = "enum : ${enumValues}" th:value= "${enum}" th:text="${enum}"></option>
+        </select>
         <label for="summary">Summary</label><input name="summary" id="summary" type="text" maxlength="25">
         <input type="submit" value="Create Ticket">
     </form>

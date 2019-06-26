@@ -10,16 +10,16 @@ public class Ticket {
     long id;
 
     LocalDateTime createdAt;
-    String severity;
+    Severity ticketLvl;
     @ManyToOne
     UserAccount creator;
     String summary;
 
     public Ticket(){}
 
-    public Ticket(String severity, UserAccount creator, String summary){
+    public Ticket(Severity ticketLvl, UserAccount creator, String summary){
         this.createdAt = LocalDateTime.now();
-        this.severity = severity;
+        this.ticketLvl = ticketLvl;
         this.creator = creator;
         this.summary = summary;
     }
@@ -38,7 +38,7 @@ public class Ticket {
         return createdAt;
     }
 
-    public String getSeverity() { return severity; }
+    public Severity getTicketLvl() { return ticketLvl; }
 
     public UserAccount getCreator() {
         return creator;

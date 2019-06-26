@@ -17,7 +17,7 @@
 
         <ul>
             <li th:text="${'Ticket number: ' + ticket.id}"></li>
-            <li th:text="${'Severity: ' + ticket.severity}"></li>
+            <li th:text="${'Severity: ' + ticket.ticketLvl}"></li>
             <li th:text="${'Summary: ' + ticket.summary}"></li>
             <li th:text="${'Creator: ' + ticket.creator.username}"></li>
             <li th:text="${'Time Created: ' + ticket.createdAt}"></li>
