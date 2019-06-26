@@ -44,7 +44,7 @@ public class TroublemakerApplication {
 			admin.getRoleTypes().add(roleRepository.findByRole("admin"));
 
 			userRepository.save(admin);
-			Ticket ticket = new Ticket(Severity.HIGH, admin, "Test");
+			Ticket ticket = new Ticket("title", Severity.HIGH, admin, "Test");
 			ticketRepository.save(ticket);
 			System.out.println("http://localhost:8080/login");
 		};
