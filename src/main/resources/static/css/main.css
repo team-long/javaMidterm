@@ -1,7 +1,7 @@
 body {
     min-height: 100%;
     min-height: 100vh;
-    background: #F0F0F0;
+    background: #e5e5e5;
 }
 
 body {
@@ -11,6 +11,11 @@ body {
 }
 main {
     flex: 1 0 auto;
+}
+
+.collapsible-header {
+    background-color: #ffffff !important;
+    border-style: none !important;
 }
 
 #main1button{
@@ -68,7 +73,7 @@ footer {
 }
 .btn2 {
     color: #ff9900 !important;
-    background-color: #fff !important;
+    background-color: #ffffff !important;
 }
 
 .btn:hover {
@@ -93,9 +98,17 @@ footer {
 	-webkit-animation: flash linear 1.5s infinite;
   animation: flash linear 1.5s infinite;
 }
-.severity5 {
+.severity3 {
+  font-weight: 800;
+  color: #fffc5e !important;
+}
+.severity4 {
   font-weight: 800;
   color: #38ad32 !important;
+}
+.severity5 {
+  font-weight: 800;
+  color: #1f85ea !important;
 }
 .resolved {
   color: #a8a8a8 !important;
@@ -120,7 +133,6 @@ footer {
     margin-left: auto;
 }
 
-
 .headerDivider {
      border-left:1px solid #38546d;
      border-right:1px solid #16222c;
@@ -128,4 +140,27 @@ footer {
      position:absolute;
      right:249px;
      top:10px;
+}
+
+.mainheader {
+  display: flex;
+  flex-flow: row wrap;
+  /* This aligns items to the end line on main-axis */
+  justify-content: space-evenly;
+}
+
+/* Medium screens */
+@media all and (max-width: 800px) {
+  .mainheader {
+    /* When on medium sized screens, we center it by evenly distributing empty space around items */
+    justify-content: space-around;
+  }
+}
+
+/* Small screens */
+@media all and (max-width: 500px) {
+  .mainheader {
+    /* On small screens, we are no longer using row direction but column */
+    flex-direction: column;
+  }
 }

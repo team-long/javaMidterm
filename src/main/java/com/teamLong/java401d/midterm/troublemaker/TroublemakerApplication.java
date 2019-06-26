@@ -1,8 +1,8 @@
 package com.teamLong.java401d.midterm.troublemaker;
 
-import com.teamLong.java401d.midterm.troublemaker.model.RoleType;
-import com.teamLong.java401d.midterm.troublemaker.model.UserAccount;
+import com.teamLong.java401d.midterm.troublemaker.model.*;
 import com.teamLong.java401d.midterm.troublemaker.repository.RoleRepository;
+import com.teamLong.java401d.midterm.troublemaker.repository.TicketRepository;
 import com.teamLong.java401d.midterm.troublemaker.repository.UserRepository;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +13,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 public class TroublemakerApplication {
+
+	@Autowired
+	private TicketRepository ticketRepository;
 
 	@Autowired
 	private RoleRepository roleRepository;
@@ -30,11 +33,12 @@ public class TroublemakerApplication {
 	@Bean
 	InitializingBean seedDatabase() {
 		return () -> {
+			if(roleRepository.findByRole("admin") == null) {
 				roleRepository.save(new RoleType("admin"));
 				roleRepository.save(new RoleType("user"));
 
 				UserAccount admin = new UserAccount();
-				admin.setUsername("nguyenv2@outlook.com");
+				admin.setUsername("admin@codefellows.com");
 				admin.setPassword(encoder.encode("admin"));
 				admin.setConfirmPassword((encoder.encode("admin")));
 				admin.getRoleTypes().add(roleRepository.findByRole("user"));
@@ -49,7 +53,15 @@ public class TroublemakerApplication {
 
 				userRepository.save(admin);
 				userRepository.save(adminTwo);
+				Ticket ticket = new Ticket("initial ticker", Severity.HIGH, admin, "Test");
+				ticketRepository.save(ticket);
+			}
+
+			System.out.println("http://localhost:8080/login");
 		};
+
+
 	}
+
 
 }
