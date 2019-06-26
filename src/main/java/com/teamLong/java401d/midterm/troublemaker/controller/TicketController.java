@@ -29,10 +29,11 @@ public class TicketController {
     }
 
     @PostMapping("/create/ticket")
-    public RedirectView makeATicket(String summary, short severity, Principal p){
+    public RedirectView makeATicket(String title, short severity, String summary, Principal p, Model model){
         UserAccount user = userRepository.findByUsername(p.getName());
-        Ticket ticket = new Ticket(severity, user, summary);
+        Ticket ticket = new Ticket(title, severity, user, summary);
         ticketRepository.save(ticket);
+        model.addAttribute("ticket", ticket);
         return new RedirectView("/main");
     }
 
@@ -69,7 +70,7 @@ public class TicketController {
         } else {
             throw new TicketDoesNotBelongToYou("There is only one thing we say to death. Not today.\n You do not own this ticket");
         }
-        return new RedirectView("allTickets");
+        return new RedirectView("/main");
     }
 
 }
