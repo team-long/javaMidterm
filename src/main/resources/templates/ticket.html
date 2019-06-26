@@ -15,7 +15,7 @@
 <body>
     <div th:replace="fragments/header :: header"></div>
     <h1>Create a Ticket</h1>
-    <form action="/create/ticket" method="post">
+    <form id="ticket" action="/create/ticket" method="post">
         <label for="title">Title</label><input type="text" name="title" id="title">
         <label form="severity">Severity</label>
         <select name="ticketLvl" id="severity" style="display:inline">

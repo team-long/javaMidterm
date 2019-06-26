@@ -20,7 +20,7 @@
         <div class="mobilefriendlytext">You have (<span><a class="ticketLink" href='/login'>3</a></span>) Tickets Assigned.</div>
     </div>
     <div>
-        <a href="/create/ticket" class="waves-effect waves-light btn btn-small tooltipped" data-position="bottom"
+        <a href="/ticket" class="waves-effect waves-light btn btn-small tooltipped" data-position="bottom"
            data-tooltip="Create a new Trouble Ticket">Create Ticket</a>
     </div>
     </center>
@@ -35,16 +35,14 @@
                 <li th:each="ticket : ${tickets}">
 
                         <div class="collapsible-header box" th:switch="${ticket.getTicketLvl().name()}">
-                        <i th:case="LOW" class="material-icons medium severity1 tooltipped" data-position="left"
-                           data-tooltip="Severity 2 escalation subject to 30 min response time.">looks_one</i>
-                        <i th:case="MEDIUM" class="material-icons medium severity2 tooltipped" data-position="left"
-                           data-tooltip="Severity 2 escalation subject to 30 min response time.">looks_two</i>
-                        <i th:case="HIGH" class="material-icons medium severity3 tooltipped" data-position="left"
-                           data-tooltip="Severity 2 escalation subject to 30 min response time.">looks_3</i>
-                        <i th:case="URGENT" class="material-icons medium severity4 tooltipped" data-position="left"
+                        <i th:case="LOW" class="material-icons medium severity4 tooltipped" data-position="left"
                            data-tooltip="Severity 2 escalation subject to 30 min response time.">looks_4</i>
-                        <i th:case="'5'" class="material-icons medium severity5 tooltipped" data-position="left"
-                           data-tooltip="Severity 2 escalation subject to 30 min response time.">looks_5</i>
+                        <i th:case="MEDIUM" class="material-icons medium severity3 tooltipped" data-position="left"
+                           data-tooltip="Severity 2 escalation subject to 30 min response time.">looks_3</i>
+                        <i th:case="HIGH" class="material-icons medium severity2 tooltipped" data-position="left"
+                           data-tooltip="Severity 2 escalation subject to 30 min response time.">looks_two</i>
+                        <i th:case="URGENT" class="material-icons medium severity1 tooltipped" data-position="left"
+                           data-tooltip="Severity 2 escalation subject to 30 min response time.">looks_one</i>
 
                         <span class="title mobilefriendlytext"/>
                         <!--must add resolved class-->

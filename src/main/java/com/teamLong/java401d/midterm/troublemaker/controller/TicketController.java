@@ -1,22 +1,28 @@
 package com.teamLong.java401d.midterm.troublemaker.controller;
 
 
-import com.teamLong.java401d.midterm.troublemaker.email.EmailSender;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.teamLong.java401d.midterm.troublemaker.model.Severity;
 import com.teamLong.java401d.midterm.troublemaker.model.Ticket;
 import com.teamLong.java401d.midterm.troublemaker.model.UserAccount;
-import com.teamLong.java401d.midterm.troublemaker.repository.RoleRepository;
 import com.teamLong.java401d.midterm.troublemaker.repository.TicketRepository;
 import com.teamLong.java401d.midterm.troublemaker.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
+import javax.validation.Valid;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
+
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -26,15 +32,12 @@ import java.util.List;
 public class TicketController {
 
     @Autowired
-    RoleRepository roleRepository;
-
-    @Autowired
     UserRepository userRepository;
 
     @Autowired
     TicketRepository ticketRepository;
 
-    @GetMapping("/create/ticket")
+    @GetMapping("/ticket")
     public String createTicketPage(Model model){
         List<Enum> enumValues = new ArrayList<Enum>(EnumSet.allOf(Severity.class));
         model.addAttribute("enumValues", enumValues);
@@ -49,16 +52,10 @@ public class TicketController {
     }
 
     @PostMapping("/create/ticket")
-    public RedirectView makeATicket(String title, String ticketLvl, String summary, Principal p, Model model){
+    public RedirectView makeATicket(String title, Severity ticketLvl, String summary, Principal p, Model model){
         UserAccount user = userRepository.findByUsername(p.getName());
-        Ticket ticket = new Ticket(title, Severity.valueOf(ticketLvl), user, summary);
+        Ticket ticket = new Ticket(title, ticketLvl, user, summary);
         ticketRepository.save(ticket);
-
-        ArrayList<UserAccount> accounts = new ArrayList<UserAccount>(roleRepository.findByRole("admin").getUserAccounts());
-        List<String> emails = new ArrayList<String>();
-        accounts.forEach(account -> emails.add(account.getUsername()));
-
-        EmailSender.sendEmail(user, emails, "CREATE", ticket);
         model.addAttribute("ticket", ticket);
         return new RedirectView("/main");
     }
@@ -77,23 +74,23 @@ public class TicketController {
     @GetMapping("/edit/{id}")
     public String editTicket(@PathVariable long id, Principal principal, Model model){
         Ticket ticket = ticketRepository.findById(id);
-        List<Enum> enumValues = new ArrayList<Enum>(EnumSet.allOf(Severity.class));
-        model.addAttribute("enumValues", enumValues);
         model.addAttribute("ticket", ticket);
-
         UserAccount loggedInUser = userRepository.findByUsername(principal.getName());
         model.addAttribute("loggedInUser", loggedInUser);
+        List<Enum> enumValues = new ArrayList<Enum>(EnumSet.allOf(Severity.class));
+        model.addAttribute("enumValues", enumValues);
         return "edit";
     }
 
     @PostMapping("/tickets/edit/{id}")
-    public RedirectView updateTicket(@PathVariable long id,  String title, String ticketLvl, String summary, Principal principal){
+    public RedirectView updateTicket(@PathVariable long id, String title, String ticketLvl, String summary, Principal principal, Model model){
         System.out.println(id);
+        System.out.println("we're here!!!" + ticketLvl);
         Ticket ticket = ticketRepository.findById(id);
         if(ticket.getCreator().getUsername().equals(principal.getName())){
 //            ticket.setArchived();
             ticket.setTitle(title);
-            ticket.setSeverity(Severity.valueOf(ticketLvl));
+            ticket.setTicketLvl(Severity.valueOf(ticketLvl));
             ticket.setSummary(summary);
             ticketRepository.save(ticket);
         } else {
