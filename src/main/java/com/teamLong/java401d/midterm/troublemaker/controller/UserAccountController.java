@@ -1,10 +1,9 @@
 package com.teamLong.java401d.midterm.troublemaker.controller;
 
-import com.sendgrid.Response;
 import com.teamLong.java401d.midterm.troublemaker.model.UserAccount;
 import com.teamLong.java401d.midterm.troublemaker.repository.RoleRepository;
 import com.teamLong.java401d.midterm.troublemaker.repository.UserRepository;
-import com.teamLong.java401d.midterm.troublemaker.sendgrid.EmailSender;
+import com.teamLong.java401d.midterm.troublemaker.email.EmailSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -58,7 +57,7 @@ public class UserAccountController {
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        EmailSender.SendEmail(user.getUsername());
+        EmailSender.sendEmail(user, null, "INTRO", null);
         return "redirect:/main";
     }
 
