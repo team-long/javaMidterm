@@ -19,7 +19,7 @@ public class HomeController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Principal user) {
-        return "index";
+        return "redirect:/login";
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
@@ -35,6 +35,8 @@ public class HomeController {
     // open test route for main
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public String main(Principal user) {
+
+
         return "main";
     }
 }

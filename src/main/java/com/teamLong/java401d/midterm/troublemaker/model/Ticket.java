@@ -10,10 +10,16 @@ public class Ticket {
     long id;
 
     LocalDateTime createdAt;
+
     Severity ticketLvl;
     @ManyToOne
     UserAccount creator;
     String summary;
+    boolean archived;
+
+    //database relation
+    @ManyToOne
+    UserAccount creator;
 
     public Ticket(){}
 
@@ -22,12 +28,9 @@ public class Ticket {
         this.ticketLvl = ticketLvl;
         this.creator = creator;
         this.summary = summary;
+        this.archived = false;
     }
-
-//    database relation
-
-
-
+  
     //getters & setters
 
     public long getId() {

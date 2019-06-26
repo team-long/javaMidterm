@@ -46,9 +46,19 @@ public class TicketController {
         UserAccount user = userRepository.findByUsername(p.getName());
         Ticket ticket = new Ticket(ticketLvl, user, summary);
         ticketRepository.save(new Ticket(ticketLvl, user, summary));
-        return new RedirectView("/profile");
+        return new RedirectView("/profile"); // currently no profile, user tickets are rendering on main.html
+
     }
 
 
     //all tickets user route
+    @GetMapping("/tickets/all")
+    public String getAllTickets(Principal principal, Model model){
+        UserAccount loggedInUser = userRepository.findByUsername(principal.getName());
+        model.addAttribute("loggedInUser", loggedInUser);
+        Iterable<Ticket> tickets = ticketRepository.findAll();
+        model.addAttribute("tickets", tickets);
+        return "allTickets";
+    }
+
 }
