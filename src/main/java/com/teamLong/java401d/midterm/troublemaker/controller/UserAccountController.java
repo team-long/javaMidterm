@@ -53,7 +53,7 @@ public class UserAccountController {
     public String createUser(@Valid @ModelAttribute UserAccount user, BindingResult binding, RedirectAttributes redirect) {
         if(binding.hasErrors()) {
             redirect.addFlashAttribute("errors", binding.getAllErrors());
-            return "redirect:/register";
+            return "redirect:/login";
         }
 
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
