@@ -4,8 +4,13 @@ body {
     background: #F0F0F0;
 }
 
-.main1 {
-    margin-top: 15px;
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+main {
+    flex: 1 0 auto;
 }
 
 #main1button{
@@ -28,6 +33,7 @@ body {
 
 .navbar {
 	background-color: #232f3e !important;
+	margin-bottom: 25px;
 }
 
 footer {
@@ -42,6 +48,7 @@ footer {
 
 }
 
+/* Mobile friendly text */
 @media screen and (min-width: 601px) {
 	div.mobilefriendlytext {
 	    text-align:center;
@@ -71,9 +78,54 @@ footer {
 	color: #ffd699 !important;
 }
 
+/* Ticket card Summary highlight */
 .ticketLink {
-
+    font-weight:800;
 }
 .ticketLink:hover {
 	color: #ff9900 !important;
+}
+
+/* Pulse animation */
+.severity2 {
+  font-weight: 800;
+  color: #ffab35 !important;
+	-webkit-animation: flash linear 1.5s infinite;
+  animation: flash linear 1.5s infinite;
+}
+.severity5 {
+  font-weight: 800;
+  color: #38ad32 !important;
+}
+.resolved {
+  color: #a8a8a8 !important;
+}
+@-webkit-keyframes flash {
+  0% { opacity: 1; }
+  50% { opacity: .1; }
+  100% { opacity: 1; }
+}
+@keyframes flash {
+  0% { opacity: 1; }
+  50% { opacity: .1; }
+  100% { opacity: 1; }
+}
+
+
+/* Ticket card menu buttons justified to the right of card */
+.box {
+  display: flex;
+}
+.push {
+    margin-left: auto;
+}
+
+
+.headerDivider {
+     border-left:1px solid #38546d;
+     border-right:1px solid #16222c;
+     height:80px;
+     position:absolute;
+     right:249px;
+     top:10px;
 }
