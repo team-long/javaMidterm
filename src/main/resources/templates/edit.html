@@ -17,6 +17,7 @@
     <h1>Edit your ticket</h1>
     <form action="/tickets/edit/{id}" method="post">
         <input type="hidden" th:value="${ticket.id}">
+        <label for="title">Title</label><input type="text" name="title" id="title" th:placeholder="${ticket.title}">
         <label for="severity">Severity</label><input name="severity" id="severity" type="number" min="1" max="5" th:placeholder="${ticket.severity}">
         <label for="summary">Summary</label><input name="summary" id="summary" type="text" maxlength="25" th:attr="placeholder=${ticket.summary}">
         <input type="submit" value="Update Ticket">
