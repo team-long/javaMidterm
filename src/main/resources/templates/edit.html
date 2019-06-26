@@ -1,10 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link href="/css/main.css" rel="stylesheet" />
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css}"  media="screen,projection"/>
+    <title>Edit</title>
 </head>
 <body>
-
+    <div th:replace="fragments/header :: header"></div>
+    <h1>Edit your ticket</h1>
+    <form action="/tickets/edit/{id}" method="post">
+        <input type="hidden" th:value="${ticket.id}">
+        <label for="severity">Severity</label><input name="severity" id="severity" type="number" min="1" max="5" th:placeholder="${ticket.severity}">
+        <label for="summary">Summary</label><input name="summary" id="summary" type="text" maxlength="25" th:attr="placeholder=${ticket.summary}">
+        <input type="submit" value="Update Ticket">
+    </form>
+    <div th:replace="fragments/footer :: footer"></div>
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 </body>
 </html>
