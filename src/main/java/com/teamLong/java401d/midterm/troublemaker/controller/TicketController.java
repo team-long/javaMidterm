@@ -1,6 +1,8 @@
 package com.teamLong.java401d.midterm.troublemaker.controller;
 
+
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import com.teamLong.java401d.midterm.troublemaker.model.Severity;
 import com.teamLong.java401d.midterm.troublemaker.model.Ticket;
 import com.teamLong.java401d.midterm.troublemaker.model.UserAccount;
 import com.teamLong.java401d.midterm.troublemaker.repository.TicketRepository;
@@ -10,11 +12,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
-
 import javax.validation.Valid;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
+
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
 
 @Controller
 public class TicketController {
@@ -25,19 +37,29 @@ public class TicketController {
     @Autowired
     TicketRepository ticketRepository;
 
-    @GetMapping("/create/ticket")
-    public String createTicketPage(){
+    @GetMapping("/ticket")
+    public String createTicketPage(Model model){
+        List<Enum> enumValues = new ArrayList<Enum>(EnumSet.allOf(Severity.class));
+        model.addAttribute("enumValues", enumValues);
         return "ticket";
     }
 
+    @GetMapping("/ticket/{ticketId}")
+    public String getOneTicketPage(@PathVariable long ticketId, Model m ){
+        Ticket oneTicket = ticketRepository.findById(ticketId);
+        m.addAttribute("ticket", oneTicket);
+        return "ticket-detail";
+    }
+
     @PostMapping("/create/ticket")
-    public RedirectView makeATicket(String title, short severity, String summary, Principal p, Model model){
+    public RedirectView makeATicket(String title, Severity ticketLvl, String summary, Principal p, Model model){
         UserAccount user = userRepository.findByUsername(p.getName());
-        Ticket ticket = new Ticket(title, severity, user, summary);
+        Ticket ticket = new Ticket(title, ticketLvl, user, summary);
         ticketRepository.save(ticket);
         model.addAttribute("ticket", ticket);
         return new RedirectView("/main");
     }
+
 
     //all tickets user route
     @GetMapping("/tickets/all")

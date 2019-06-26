@@ -1,8 +1,8 @@
 package com.teamLong.java401d.midterm.troublemaker;
 
-import com.teamLong.java401d.midterm.troublemaker.model.RoleType;
-import com.teamLong.java401d.midterm.troublemaker.model.UserAccount;
+import com.teamLong.java401d.midterm.troublemaker.model.*;
 import com.teamLong.java401d.midterm.troublemaker.repository.RoleRepository;
+import com.teamLong.java401d.midterm.troublemaker.repository.TicketRepository;
 import com.teamLong.java401d.midterm.troublemaker.repository.UserRepository;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +13,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 public class TroublemakerApplication {
+
+	@Autowired
+	private TicketRepository ticketRepository;
 
 	@Autowired
 	private RoleRepository roleRepository;
@@ -41,7 +44,13 @@ public class TroublemakerApplication {
 			admin.getRoleTypes().add(roleRepository.findByRole("admin"));
 
 			userRepository.save(admin);
+			Ticket ticket = new Ticket(Severity.HIGH, admin, "Test");
+			ticketRepository.save(ticket);
+			System.out.println("http://localhost:8080/login");
 		};
+
+
 	}
+
 
 }

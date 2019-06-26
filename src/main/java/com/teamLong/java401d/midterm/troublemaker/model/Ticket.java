@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 @Entity
 public class Ticket {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
 
     private String title;
@@ -14,6 +14,7 @@ public class Ticket {
     private short severity;
     private String summary;
     private boolean archived;
+    Severity ticketLvl;
 
     //database relation
     @ManyToOne
@@ -21,17 +22,15 @@ public class Ticket {
 
     public Ticket(){}
 
-    public Ticket(String title, short severity, UserAccount creator, String summary){
+    public Ticket(String title, Severity ticketLvl, UserAccount creator, String summary){
         this.createdAt = LocalDateTime.now();
         this.title = title;
-        this.severity = severity;
+        this.ticketLvl = ticketLvl;
         this.creator = creator;
         this.summary = summary;
         this.archived = false;
     }
-
-
-
+  
     //getters & setters
 
     public long getId() {
@@ -50,9 +49,7 @@ public class Ticket {
         return archived;
     }
 
-    public short getSeverity() {
-        return severity;
-    }
+    public Severity getTicketLvl() { return ticketLvl; }
 
     public UserAccount getCreator() {
         return creator;
