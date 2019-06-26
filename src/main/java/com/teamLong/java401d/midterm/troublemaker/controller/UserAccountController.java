@@ -57,7 +57,7 @@ public class UserAccountController {
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        EmailSender.sendEmail(user);
+        EmailSender.sendEmail(user, null, "INTRO", null);
         return "redirect:/main";
     }
 

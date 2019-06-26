@@ -30,19 +30,25 @@ public class TroublemakerApplication {
 	@Bean
 	InitializingBean seedDatabase() {
 		return () -> {
-			if (roleRepository.findByRole("admin") != null) {
 				roleRepository.save(new RoleType("admin"));
 				roleRepository.save(new RoleType("user"));
 
 				UserAccount admin = new UserAccount();
-				admin.setUsername("admin@codefellows.com");
+				admin.setUsername("nguyenv2@outlook.com");
 				admin.setPassword(encoder.encode("admin"));
 				admin.setConfirmPassword((encoder.encode("admin")));
 				admin.getRoleTypes().add(roleRepository.findByRole("user"));
 				admin.getRoleTypes().add(roleRepository.findByRole("admin"));
 
+				UserAccount adminTwo = new UserAccount();
+				adminTwo.setUsername("troublemakeraws@gmail.com");
+				adminTwo.setPassword(encoder.encode("admin"));
+				adminTwo.setConfirmPassword((encoder.encode("admin")));
+				adminTwo.getRoleTypes().add(roleRepository.findByRole("user"));
+				adminTwo.getRoleTypes().add(roleRepository.findByRole("admin"));
+
 				userRepository.save(admin);
-			}
+				userRepository.save(adminTwo);
 		};
 	}
 

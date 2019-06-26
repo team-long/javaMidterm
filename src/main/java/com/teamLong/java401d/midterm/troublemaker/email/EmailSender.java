@@ -1,7 +1,4 @@
 package com.teamLong.java401d.midterm.troublemaker.email;
-
-import java.io.IOException;
-
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClientBuilder;
@@ -10,37 +7,33 @@ import com.amazonaws.services.simpleemail.model.Content;
 import com.amazonaws.services.simpleemail.model.Destination;
 import com.amazonaws.services.simpleemail.model.Message;
 import com.amazonaws.services.simpleemail.model.SendEmailRequest;
+import com.teamLong.java401d.midterm.troublemaker.model.Ticket;
 import com.teamLong.java401d.midterm.troublemaker.model.UserAccount;
+import com.teamLong.java401d.midterm.troublemaker.repository.RoleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class EmailSender {
 
-    // Replace sender@example.com with your "From" address.
-    // This address must be verified with Amazon SES.
     static final String FROM = "troublemakeraws@gmail.com";
 
-    // Replace recipient@example.com with a "To" address. If your account
-    // is still in the sandbox, this address must be verified.
-    static final String TO = "recipient@example.com";
+    public static void sendEmail(UserAccount user, Collection<String> emails, String type, Ticket ticket) {
+        Email mail = new Email();
 
-    // The configuration set to use for this email. If you do not want to use a
-    // configuration set, comment the following variable and the
-    // .withConfigurationSetName(CONFIGSET); argument below.
-    static final String CONFIGSET = "ConfigSet";
+        switch (type) {
+            case("INTRO"):
+                mail = new IntroEmail(user);
+                break;
+            case("CREATE"):
+                mail = new TicketCreationEmail(user, ticket, emails);
+                break;
+        }
 
-    // The subject line for the email.
-    static final String SUBJECT = "Welcome to Troublemaker";
+        System.out.print(mail.htmlBody);
 
-    // The HTML body for the email.
-    static final String HTMLBODY = "<h1>Amazon SES test (AWS SDK for Java)</h1>"
-            + "<p>This email was sent with <a href='https://aws.amazon.com/ses/'>"
-            + "Amazon SES</a> using the <a href='https://aws.amazon.com/sdk-for-java/'>"
-            + "AWS SDK for Java</a>";
-
-    // The email body for recipients with non-HTML email clients.
-    static final String TEXTBODY = "This email was sent through Amazon SES "
-            + "using the AWS SDK for Java.";
-
-    public static void sendEmail(UserAccount user) {
 
         try {
             AmazonSimpleEmailService client =
@@ -50,19 +43,16 @@ public class EmailSender {
                             .withRegion(Regions.US_WEST_2).build();
             SendEmailRequest request = new SendEmailRequest()
                     .withDestination(
-                            new Destination().withToAddresses(user.getUsername()))
+                            new Destination().withToAddresses(mail.recicipientEmail))
                     .withMessage(new Message()
                             .withBody(new Body()
                                     .withHtml(new Content()
-                                            .withCharset("UTF-8").withData(HTMLBODY))
+                                            .withCharset("UTF-8").withData(mail.htmlBody))
                                     .withText(new Content()
-                                            .withCharset("UTF-8").withData(TEXTBODY)))
+                                            .withCharset("UTF-8").withData(mail.textBody)))
                             .withSubject(new Content()
-                                    .withCharset("UTF-8").withData(SUBJECT)))
+                                    .withCharset("UTF-8").withData(mail.subject)))
                     .withSource(FROM);
-                    // Comment or remove the next line if you are not using a
-                    // configuration set
-//                    .withConfigurationSetName(CONFIGSET);
             client.sendEmail(request);
             System.out.println("Email sent!");
         } catch (Exception ex) {
@@ -70,4 +60,59 @@ public class EmailSender {
                     + ex.getMessage());
         }
     }
+}
+
+class Email {
+    protected String recicipientName;
+
+    protected Collection<String> recicipientEmail = new ArrayList<>();
+
+    protected String subject;
+
+    protected String htmlBody;
+
+    protected String textBody;
+
+    public Email() {};
+
+    public Email(UserAccount user) {
+        this.recicipientName = user.getFirstName() + " " + user.getLastName();
+        this.recicipientEmail.add(user.getUsername());
+    }
+}
+
+class IntroEmail extends Email {
+
+
+    public IntroEmail(UserAccount user) {
+        super(user);
+        subject = "Welcome to Troublemaker";
+
+        htmlBody = "<h1>Welcome to Troublemaker, " + recicipientName + "!</h1>"
+                + "<p>Thanks for registering. "
+                + "Visit <a href='https://aws.amazon.com/sdk-for-java/'>"
+                + "Troublemaker</a> to begin reporting issues.";
+
+        textBody = "Welcome to Troublemaker, " + recicipientName + "! Visit our site to report issues.";
+    }
+}
+
+class TicketCreationEmail extends Email {
+
+
+    public TicketCreationEmail(UserAccount user, Ticket ticket, Collection<String> emails) {
+        super(user);
+        subject = "New Ticket has been created";
+        recicipientEmail = emails;
+
+        htmlBody = "<h1>Ticket #" + ticket.getId() + " has been created by " + recicipientName + "!</h1>"
+                + "<p> Visit <a href='https://aws.amazon.com/sdk-for-java/'>"
+                + "Troublemaker</a> to begin resolving the issue.";
+
+        textBody = "Ticket #" + ticket.getId() + "has been created by" + recicipientName + ". Visit Troublemaker to begin resolving the issue.";
+    }
+}
+
+class TicketResolvedEmail extends Email {
+
 }
