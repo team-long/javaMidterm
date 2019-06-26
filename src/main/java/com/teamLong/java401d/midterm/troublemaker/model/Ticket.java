@@ -6,11 +6,14 @@ import java.time.LocalDateTime;
 @Entity
 public class Ticket {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
 
     LocalDateTime createdAt;
-    short severity;
+
+    Severity ticketLvl;
+    @ManyToOne
+    UserAccount creator;
     String summary;
     boolean archived;
 
@@ -20,16 +23,14 @@ public class Ticket {
 
     public Ticket(){}
 
-    public Ticket(short severity, UserAccount creator, String summary){
+    public Ticket(Severity ticketLvl, UserAccount creator, String summary){
         this.createdAt = LocalDateTime.now();
-        this.severity = severity;
+        this.ticketLvl = ticketLvl;
         this.creator = creator;
         this.summary = summary;
         this.archived = false;
     }
-
-
-
+  
     //getters & setters
 
     public long getId() {
@@ -40,9 +41,7 @@ public class Ticket {
         return createdAt;
     }
 
-    public short getSeverity() {
-        return severity;
-    }
+    public Severity getTicketLvl() { return ticketLvl; }
 
     public UserAccount getCreator() {
         return creator;

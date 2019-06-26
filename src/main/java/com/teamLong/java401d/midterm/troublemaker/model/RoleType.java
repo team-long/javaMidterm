@@ -19,7 +19,7 @@ public class RoleType {
     @Column(unique = true)
     private String role;
 
-    @ManyToMany(mappedBy = "roleTypes")
+    @ManyToMany(mappedBy = "roleTypes", fetch = FetchType.EAGER)
     private Set<UserAccount> userAccounts = new HashSet<UserAccount>();
 
     public RoleType(String role) {
