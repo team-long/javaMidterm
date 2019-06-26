@@ -6,20 +6,29 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css}"  media="screen,projection"/>
-
 </head>
 
 <body>
-<div th:replace="fragments/navbar :: navbar"></div>
+<div th:replace="fragments/header :: header"></div>
 <main>
-    <center>
+
+    <div class="row">
+        <div class="col s12 m5">
+            <div class="card-panel teal">
+        <span class="white-text">I am a very simple card. I am good at containing small bits of information.
+        I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
+        </span>
+            </div>
+        </div>
+    </div>
+
+    <center style="margin: 50px 0px;">
         <!--<div th:if="${shouldShowExtraMessage}">-->
             <!--You got the secret message-->
         <!--</div>-->
-        <div class="section"></div>
+
 
         <h5 style="color:#232f3e;">Login into your account</h5>
-        <div class="section"></div>
 
         <div class="container">
             <div class="z-depth-1 grey lighten-4 row loginWindow">
@@ -31,14 +40,14 @@
                     </div>
 
                     <div class='row'>
-                        <div class='input-field col s12'>
+                        <div class='input-field col s12 m4 l8'>
                             <input class='validate' type='text' name='username' id='username' />
                             <label for='username'>Enter your username</label>
                         </div>
                     </div>
 
                     <div class='row'>
-                        <div class='input-field col s12'>
+                        <div class='input-field col s12 m4 l8'>
                             <input class='validate' type='password' name='password' id='password' />
                             <label for='password'>Enter your password</label>
                         </div>
@@ -60,9 +69,7 @@
     </center>
 </main>
 <footer class="footer">
-    <!--<div>-->
-        <!--<p class="text-muted"><footer th:replace="fragments/footer :: footer" role="footer"></footer></p>-->
-    <!--</div>-->
+    <div th:replace="fragments/footer :: footer"></div>
 </footer>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
