@@ -49,7 +49,7 @@ public class UserAccountController {
                 customErrors.add("Password must match.");
             }
             redirect.addFlashAttribute("errors", customErrors);
-            return "redirect:/register";
+            return "redirect:/login";
         }
 
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
@@ -59,7 +59,7 @@ public class UserAccountController {
         Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
         SecurityContextHolder.getContext().setAuthentication(authentication);
         EmailSender.SendEmail(user.getUsername());
-        return "redirect:/user";
+        return "redirect:/main";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
