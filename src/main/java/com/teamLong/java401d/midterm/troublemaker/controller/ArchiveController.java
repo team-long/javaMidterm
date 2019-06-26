@@ -22,7 +22,7 @@ public class ArchiveController {
 
     @Autowired
     TicketRepository ticketRepository;
-    
+
     @Autowired
     ArchiveRepository archiveRepository;
 
