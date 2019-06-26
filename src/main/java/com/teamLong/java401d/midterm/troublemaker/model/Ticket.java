@@ -11,6 +11,7 @@ public class Ticket {
 
     LocalDateTime createdAt;
     short severity;
+    @ManyToOne
     UserAccount creator;
     String summary;
 
@@ -22,12 +23,6 @@ public class Ticket {
         this.creator = creator;
         this.summary = summary;
     }
-
-//    database relation
-//    @ManyToOne
-//    UserAccount creator;
-
-    //getters & setters
 
     public long getId() {
         return id;
