@@ -11,10 +11,10 @@ public class Ticket {
 
     private String title;
     LocalDateTime createdAt;
-    private short severity;
     private String summary;
     private boolean archived;
     Severity ticketLvl;
+    String ticketLvlString;
 
     //database relation
     @ManyToOne
@@ -30,6 +30,30 @@ public class Ticket {
         this.summary = summary;
         this.archived = false;
     }
+
+//    public Ticket(String title, String ticketLvlString, UserAccount creator, String summary){
+//        Severity severity = Severity.LOW;
+//        switch(ticketLvlString){
+//            case "LOW":
+//                severity = Severity.LOW;
+//                break;
+//            case "MEDIUM":
+//                severity = Severity.MEDIUM;
+//                break;
+//            case "HIGH":
+//                severity = Severity.HIGH;
+//                break;
+//            case "URGENT":
+//                severity = Severity.URGENT;
+//                break;
+//        }
+//        this.createdAt = LocalDateTime.now();
+//        this.title = title;
+//        this.ticketLvl = severity;
+//        this.creator = creator;
+//        this.summary = summary;
+//        this.archived = false;
+//    }
   
     //getters & setters
 
@@ -63,9 +87,9 @@ public class Ticket {
         this.title = title;
     }
 
-    public void setSeverity(short severity) {
-        this.severity = severity;
-    }
+    public void setTicketLvl(Severity ticketLvl) { this.ticketLvl = ticketLvl; }
+
+    public void setTicketLvlString(String ticketLvlString) { this.ticketLvlString = ticketLvlString; }
 
     public void setSummary(String summary) {
         this.summary = summary;

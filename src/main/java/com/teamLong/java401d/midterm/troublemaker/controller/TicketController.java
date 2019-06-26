@@ -77,17 +77,20 @@ public class TicketController {
         model.addAttribute("ticket", ticket);
         UserAccount loggedInUser = userRepository.findByUsername(principal.getName());
         model.addAttribute("loggedInUser", loggedInUser);
+        List<Enum> enumValues = new ArrayList<Enum>(EnumSet.allOf(Severity.class));
+        model.addAttribute("enumValues", enumValues);
         return "edit";
     }
 
     @PostMapping("/tickets/edit/{id}")
-    public RedirectView updateTicket(@PathVariable long id,  String title, short severity, String summary, Principal principal){
+    public RedirectView updateTicket(@PathVariable long id, String title, String ticketLvl, String summary, Principal principal, Model model){
         System.out.println(id);
+        System.out.println("we're here!!!" + ticketLvl);
         Ticket ticket = ticketRepository.findById(id);
         if(ticket.getCreator().getUsername().equals(principal.getName())){
 //            ticket.setArchived();
             ticket.setTitle(title);
-            ticket.setSeverity(severity);
+            ticket.setTicketLvl(Severity.valueOf(ticketLvl));
             ticket.setSummary(summary);
             ticketRepository.save(ticket);
         } else {
