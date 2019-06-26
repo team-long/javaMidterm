@@ -9,13 +9,12 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
 
+    private String title;
     LocalDateTime createdAt;
-
+    private short severity;
+    private String summary;
+    private boolean archived;
     Severity ticketLvl;
-    @ManyToOne
-    UserAccount creator;
-    String summary;
-    boolean archived;
 
     //database relation
     @ManyToOne
@@ -23,8 +22,9 @@ public class Ticket {
 
     public Ticket(){}
 
-    public Ticket(Severity ticketLvl, UserAccount creator, String summary){
+    public Ticket(String title, Severity ticketLvl, UserAccount creator, String summary){
         this.createdAt = LocalDateTime.now();
+        this.title = title;
         this.ticketLvl = ticketLvl;
         this.creator = creator;
         this.summary = summary;
@@ -41,6 +41,14 @@ public class Ticket {
         return createdAt;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public boolean isArchived() {
+        return archived;
+    }
+
     public Severity getTicketLvl() { return ticketLvl; }
 
     public UserAccount getCreator() {
@@ -49,5 +57,21 @@ public class Ticket {
 
     public String getSummary() {
         return summary;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setSeverity(short severity) {
+        this.severity = severity;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public void setArchived(boolean archived) {
+        this.archived = archived;
     }
 }

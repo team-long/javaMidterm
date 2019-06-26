@@ -1,18 +1,28 @@
 package com.teamLong.java401d.midterm.troublemaker.controller;
 
+
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.teamLong.java401d.midterm.troublemaker.model.Severity;
 import com.teamLong.java401d.midterm.troublemaker.model.Ticket;
 import com.teamLong.java401d.midterm.troublemaker.model.UserAccount;
 import com.teamLong.java401d.midterm.troublemaker.repository.TicketRepository;
 import com.teamLong.java401d.midterm.troublemaker.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
+import javax.validation.Valid;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
+
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -42,12 +52,12 @@ public class TicketController {
     }
 
     @PostMapping("/create/ticket")
-    public RedirectView makeATicket(String summary, Severity ticketLvl, Principal p){
+    public RedirectView makeATicket(String title, Severity ticketLvl, String summary, Principal p, Model model){
         UserAccount user = userRepository.findByUsername(p.getName());
-        Ticket ticket = new Ticket(ticketLvl, user, summary);
-        ticketRepository.save(new Ticket(ticketLvl, user, summary));
-        return new RedirectView("/profile"); // currently no profile, user tickets are rendering on main.html
-
+        Ticket ticket = new Ticket(title, ticketLvl, user, summary);
+        ticketRepository.save(ticket);
+        model.addAttribute("ticket", ticket);
+        return new RedirectView("/main");
     }
 
 
@@ -61,4 +71,48 @@ public class TicketController {
         return "allTickets";
     }
 
+    @GetMapping("/edit/{id}")
+    public String editTicket(@PathVariable long id, Principal principal, Model model){
+        Ticket ticket = ticketRepository.findById(id);
+        model.addAttribute("ticket", ticket);
+        UserAccount loggedInUser = userRepository.findByUsername(principal.getName());
+        model.addAttribute("loggedInUser", loggedInUser);
+        return "edit";
+    }
+
+    @PostMapping("/tickets/edit/{id}")
+    public RedirectView updateTicket(@PathVariable long id,  String title, short severity, String summary, Principal principal){
+        System.out.println(id);
+        Ticket ticket = ticketRepository.findById(id);
+        if(ticket.getCreator().getUsername().equals(principal.getName())){
+//            ticket.setArchived();
+            ticket.setTitle(title);
+            ticket.setSeverity(severity);
+            ticket.setSummary(summary);
+            ticketRepository.save(ticket);
+        } else {
+            throw new TicketDoesNotBelongToYou("There is only one thing we say to death. Not today.\n You do not own this ticket");
+        }
+        return new RedirectView("/main");
+    }
+
+
+    @DeleteMapping("delete/ticket/{id}")
+    public RedirectView deleteTicket(@PathVariable long id, Principal principal, Model model){
+        Ticket ticket = ticketRepository.findById(id);
+        if(ticket.getCreator().getUsername().equals(principal.getName())){
+            ticketRepository.deleteById(id);
+        } else {
+            throw new TicketDoesNotBelongToYou("There is only one thing we say to death. Not today.\n You do not own this ticket");
+        }
+        return new RedirectView("/main");
+    }
+
+}
+
+@ResponseStatus(value = HttpStatus.FORBIDDEN)
+class TicketDoesNotBelongToYou extends RuntimeException {
+    public TicketDoesNotBelongToYou(String string){
+        super(string);
+    }
 }

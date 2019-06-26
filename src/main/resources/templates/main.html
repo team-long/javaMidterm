@@ -14,196 +14,63 @@
 <body>
 <div th:replace="fragments/header :: header"></div>
 
-<div class="row box">
+<center class="mainheader">
 
-    <div class="col s8 m8 l8">
+    <div>
         <div class="mobilefriendlytext">You have (<span><a class="ticketLink" href='/login'>3</a></span>) Tickets Assigned.</div>
     </div>
-    <div class="col s2 m2 l2" push>
+    <div>
         <a href="/create/ticket" class="waves-effect waves-light btn btn-small tooltipped" data-position="bottom"
            data-tooltip="Create a new Trouble Ticket">Create Ticket</a>
     </div>
-    <div class="col s2 m2 l2">
-        <a href="#" class="waves-effect waves-light btn btn-small tooltipped" data-position="bottom"
-           data-tooltip="View your archived tickets">Archive</a>
-    </div>
-    </div>
+    </center>
 
 </div>
 
 <section id="alltickets">
     <div class="row">
-
-        <div class="col s12 m2 l2">
-        </div>
-
+        <div class="col s12 m2 l2"></div>
         <div class="col s12 m8 l8">
             <ul class="collapsible popout">
-                <!--Main Ticket Cards Example loop on li: th:each="ticket : ${allTickets}"-->
-                <li>
-                    <div class="collapsible-header box">
-                        <i class="material-icons medium severity2 tooltipped" data-position="left"
+                <li th:each="ticket : ${tickets}">
+
+                        <div class="collapsible-header box" th:switch="${ticket.severity}">
+                        <i th:case="'1'" class="material-icons medium severity1 tooltipped" data-position="left"
+                           data-tooltip="Severity 2 escalation subject to 30 min response time.">looks_one</i>
+                        <i th:case="'2'" class="material-icons medium severity2 tooltipped" data-position="left"
                            data-tooltip="Severity 2 escalation subject to 30 min response time.">looks_two</i>
-                        <span class="title mobilefriendlytext"/>
-                        <!-- th:href Ticket id -->
-                        <a class="ticketLink" href='/ticket/detail' style="font-weight:bold;">Toilet is overflowing in the women's bathrooom!</a>
-                        </span>
-                        <form method="POST" action="#" class="push">
-                            <!--Example: th:value="${ticket.id} to see detail page-->
-                            <input name="Symbol" type="hidden">
-                            <a class="secondary-content btn2 tooltipped" data-position="top"
-                               data-tooltip="See more details and modify this ticket." type="submit" ><i class="material-icons Small">edit</i></a>
-                        </form>
-                        <form method="POST" action="#">
-                            <!--Example: th:value="${ticket.id} for adding to user favorites-->
-                            <input name="Symbol" type="hidden">
-                            <a class="secondary-content btn2 tooltipped" data-position="top"
-                                    data-tooltip="Hint: You can only archive tickets that are resolved." type="submit" ><i class="material-icons Small">archive</i></a>
-                        </form>
-                    </div>
-                    <!--th:text: Ticket Summary-->
-                    <div class="collapsible-body"><span>Phasellizzle interdizzle volutpizzle tellizzle. Ut sure adipiscing lorizzle.
-                        My shizz non est. Nulla sapizzle shiznit, ultricizzle nizzle, accumsizzle vel, fermentizzle quis, ghetto.
-                        Yo mamma nizzle phat. Etizzle pizzle shizzlin dizzle ante. Mauris crazy.
-                        Vestibulizzle izzle pede varius nibh commodo commodo.</span></div>
-                </li>
+                        <i th:case="'3'" class="material-icons medium severity3 tooltipped" data-position="left"
+                           data-tooltip="Severity 2 escalation subject to 30 min response time.">looks_3</i>
+                        <i th:case="'4'" class="material-icons medium severity4 tooltipped" data-position="left"
+                           data-tooltip="Severity 2 escalation subject to 30 min response time.">looks_4</i>
+                        <i th:case="'5'" class="material-icons medium severity5 tooltipped" data-position="left"
+                           data-tooltip="Severity 2 escalation subject to 30 min response time.">looks_5</i>
 
-                <li>
-                    <div class="collapsible-header box">
-                        <i class="material-icons medium severity2 tooltipped" data-position="left"
-                           data-tooltip="Severity 2 escalation subject to 30 min response time.">looks_two</i>
                         <span class="title mobilefriendlytext"/>
-                        <!-- th:href Ticket id -->
-                        <a class="ticketLink" href='/ticket/detail' style="font-weight:bold;">Test Ticket!!</a>
+                        <!--must add resolved class-->
+                        <a class="ticketLink" th:href="@{/edit/} + ${ticket.id}">
+                            <span th:text="${ticket.title}"></span></a>
                         </span>
-                        <form method="POST" action="#" class="push">
+                        <form method="GET" th:action="@{/edit/} + ${ticket.id}" class="push">
                             <!--Example: th:value="${ticket.id} to see detail page-->
-                            <input name="Symbol" type="hidden">
-                            <a class="secondary-content btn2 tooltipped" data-position="top"
-                               data-tooltip="See more details and modify this ticket." type="submit" ><i class="material-icons Small">edit</i></a>
+                            <input name="none" type="hidden">
+                            <button class="secondary-content btn2 tooltipped" data-position="top"
+                               data-tooltip="See more details and modify this ticket." type="submit" ><i class="material-icons Small">edit</i></button>
                         </form>
                         <form method="POST" action="#">
                             <!--Example: th:value="${ticket.id} for adding to user favorites-->
                             <input name="Symbol" type="hidden">
-                            <a class="secondary-content btn2 tooltipped" data-position="top"
-                               data-tooltip="Hint: You can only archive tickets that are resolved." type="submit" ><i class="material-icons Small">archive</i></a>
+                            <button class="secondary-content btn2 tooltipped" data-position="top"
+                               data-tooltip="Hint: You can only archive tickets that are resolved." type="submit" ><i class="material-icons Small">archive</i></button>
                         </form>
                     </div>
                     <!--th:text: Ticket Summary-->
-                    <div class="collapsible-body"><span>Phasellizzle interdizzle volutpizzle tellizzle. Ut sure adipiscing lorizzle.
-                        My shizz non est. Nulla sapizzle shiznit, ultricizzle nizzle, accumsizzle vel, fermentizzle quis, ghetto.
-                        Yo mamma nizzle phat. Etizzle pizzle shizzlin dizzle ante. Mauris crazy.
-                        Vestibulizzle izzle pede varius nibh commodo commodo.</span></div>
-                </li>
-
-                <li>
-                    <div class="collapsible-header box"><i class="material-icons medium severity5">looks_5</i>
-                        <span class="title mobilefriendlytext"/>
-                        <!-- th:href Ticket id -->
-                        <a class="ticketLink" href='/ticket/detail' style="font-weight:bold;">Test Ticket!!</a>
-                        </span>
-                        <form method="POST" action="#" class="push">
-                            <!--Example: th:value="${ticket.id} to see detail page-->
-                            <input name="Symbol" type="hidden">
-                            <a class="secondary-content btn2 tooltipped" data-position="top"
-                               data-tooltip="See more details and modify this ticket." type="submit" ><i class="material-icons Small">edit</i></a>
-                        </form>
-                        <form method="POST" action="#">
-                            <!--Example: th:value="${ticket.id} for adding to user favorites-->
-                            <input name="Symbol" type="hidden">
-                            <a class="secondary-content btn2 tooltipped" data-position="top"
-                               data-tooltip="Hint: You can only archive tickets that are resolved." type="submit" ><i class="material-icons Small">archive</i></a>
-                        </form>
-                    </div>
-                    <!--th:text: Ticket Summary-->
-                    <div class="collapsible-body"><span>Phasellizzle interdizzle volutpizzle tellizzle. Ut sure adipiscing lorizzle.
-                        My shizz non est. Nulla sapizzle shiznit, ultricizzle nizzle, accumsizzle vel, fermentizzle quis, ghetto.
-                        Yo mamma nizzle phat. Etizzle pizzle shizzlin dizzle ante. Mauris crazy.
-                        Vestibulizzle izzle pede varius nibh commodo commodo.</span></div>
-                </li>
-
-                <li>
-                    <div class="collapsible-header box"><i class="material-icons medium resolved">looks_5</i>
-                        <span class="title mobilefriendlytext"/>
-                        <!-- th:href Ticket id -->
-                        <a class="ticketLink resolved" href="/ticket/detail">Test Ticket!!</a>
-                        </span>
-                        <form method="POST" action="#" class="push">
-                            <!--Example: th:value="${ticket.id} to see detail page-->
-                            <input name="Symbol" type="hidden">
-                            <a class="secondary-content btn2 tooltipped" data-position="top"
-                               data-tooltip="See more details and modify this ticket." type="submit" ><i class="material-icons Small">edit</i></a>
-                        </form>
-                        <form method="POST" action="#">
-                            <!--Example: th:value="${ticket.id} for adding to user favorites-->
-                            <input name="Symbol" type="hidden">
-                            <a class="secondary-content btn2 tooltipped" data-position="top"
-                               data-tooltip="Hint: You can only archive tickets that are resolved." type="submit" ><i class="material-icons Small">archive</i></a>
-                        </form>
-                    </div>
-                    <!--th:text: Ticket Summary-->
-                    <div class="collapsible-body"><span>Phasellizzle interdizzle volutpizzle tellizzle. Ut sure adipiscing lorizzle.
-                        My shizz non est. Nulla sapizzle shiznit, ultricizzle nizzle, accumsizzle vel, fermentizzle quis, ghetto.
-                        Yo mamma nizzle phat. Etizzle pizzle shizzlin dizzle ante. Mauris crazy.
-                        Vestibulizzle izzle pede varius nibh commodo commodo.</span></div>
-                </li>
-
-                <li>
-                    <div class="collapsible-header box"><i class="material-icons medium resolved">looks_5</i>
-                        <span class="title mobilefriendlytext"/>
-                        <!-- th:href Ticket id -->
-                        <a class="ticketLink resolved" href="/ticket/detail">Test Ticket!!</a>
-                        </span>
-                        <form method="POST" action="#" class="push">
-                            <!--Example: th:value="${ticket.id} to see detail page-->
-                            <input name="Symbol" type="hidden">
-                            <a class="secondary-content btn2 tooltipped" data-position="top"
-                               data-tooltip="See more details and modify this ticket." type="submit" ><i class="material-icons Small">edit</i></a>
-                        </form>
-                        <form method="POST" action="#">
-                            <!--Example: th:value="${ticket.id} for adding to user favorites-->
-                            <input name="Symbol" type="hidden">
-                            <a class="secondary-content btn2 tooltipped" data-position="top"
-                               data-tooltip="Hint: You can only archive tickets that are resolved." type="submit" ><i class="material-icons Small">archive</i></a>
-                        </form>
-                    </div>
-                    <!--th:text: Ticket Summary-->
-                    <div class="collapsible-body"><span>Phasellizzle interdizzle volutpizzle tellizzle. Ut sure adipiscing lorizzle.
-                        My shizz non est. Nulla sapizzle shiznit, ultricizzle nizzle, accumsizzle vel, fermentizzle quis, ghetto.
-                        Yo mamma nizzle phat. Etizzle pizzle shizzlin dizzle ante. Mauris crazy.
-                        Vestibulizzle izzle pede varius nibh commodo commodo.</span></div>
-                </li>
-
-                <li>
-                    <div class="collapsible-header box"><i class="material-icons medium resolved">looks_5</i>
-                        <span class="title mobilefriendlytext"/>
-                        <!-- th:href Ticket id -->
-                        <a class="ticketLink resolved" href="/ticket/detail">Test Ticket!!</a>
-                        </span>
-                        <form method="POST" action="#" class="push">
-                            <!--Example: th:value="${ticket.id} to see detail page-->
-                            <input name="Symbol" type="hidden">
-                            <a class="secondary-content btn2 tooltipped" data-position="top"
-                               data-tooltip="See more details and modify this ticket." type="submit" ><i class="material-icons Small">edit</i></a>
-                        </form>
-                        <form method="POST" action="#">
-                            <!--Example: th:value="${ticket.id} for adding to user favorites-->
-                            <input name="Symbol" type="hidden">
-                            <a class="secondary-content btn2 tooltipped" data-position="top"
-                               data-tooltip="Hint: You can only archive tickets that are resolved." type="submit" ><i class="material-icons Small">archive</i></a>
-                        </form>
-                    </div>
-                    <!--th:text: Ticket Summary-->
-                    <div class="collapsible-body"><span>Phasellizzle interdizzle volutpizzle tellizzle. Ut sure adipiscing lorizzle.
-                        My shizz non est. Nulla sapizzle shiznit, ultricizzle nizzle, accumsizzle vel, fermentizzle quis, ghetto.
-                        Yo mamma nizzle phat. Etizzle pizzle shizzlin dizzle ante. Mauris crazy.
-                        Vestibulizzle izzle pede varius nibh commodo commodo.</span></div>
+                    <div class="collapsible-body"><span th:text="${ticket.summary}"></span></div>
                 </li>
             </ul>
-
-
-            <div class="col s12 m2 l2"></div>
         </div>
+            <div class="col s12 m2 l2"></div>
+    </div>
 </section>
 <div th:replace="fragments/footer :: footer"></div>
 <!--JavaScript at end of body for optimized loading-->

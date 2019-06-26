@@ -1,5 +1,8 @@
 package com.teamLong.java401d.midterm.troublemaker.controller;
 
+import com.teamLong.java401d.midterm.troublemaker.model.Ticket;
+import com.teamLong.java401d.midterm.troublemaker.model.UserAccount;
+import com.teamLong.java401d.midterm.troublemaker.repository.TicketRepository;
 import com.teamLong.java401d.midterm.troublemaker.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +19,8 @@ public class HomeController {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private TicketRepository ticketRepository;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Principal user) {
@@ -34,9 +39,11 @@ public class HomeController {
 
     // open test route for main
     @RequestMapping(value = "/main", method = RequestMethod.GET)
-    public String main(Principal user) {
-
-
+    public String main(Principal user, Model model) {
+        UserAccount loggedInUser = userRepository.findByUsername(user.getName());
+        model.addAttribute("loggedInUser", loggedInUser);
+        Iterable<Ticket> tickets = ticketRepository.findAll();
+        model.addAttribute("tickets", tickets);
         return "main";
     }
 }
