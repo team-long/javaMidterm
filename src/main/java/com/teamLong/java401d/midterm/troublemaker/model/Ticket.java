@@ -9,11 +9,11 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
-    String title;
+    private String title;
     LocalDateTime createdAt;
-    short severity;
-    String summary;
-    boolean archived;
+    private short severity;
+    private String summary;
+    private boolean archived;
 
     //database relation
     @ManyToOne
@@ -62,5 +62,19 @@ public class Ticket {
         return summary;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
+    public void setSeverity(short severity) {
+        this.severity = severity;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public void setArchived(boolean archived) {
+        this.archived = archived;
+    }
 }
