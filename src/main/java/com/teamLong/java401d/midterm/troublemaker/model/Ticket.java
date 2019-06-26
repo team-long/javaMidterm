@@ -9,6 +9,7 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
+    String title;
     LocalDateTime createdAt;
     short severity;
     String summary;
@@ -20,8 +21,9 @@ public class Ticket {
 
     public Ticket(){}
 
-    public Ticket(short severity, UserAccount creator, String summary){
+    public Ticket(String title, short severity, UserAccount creator, String summary){
         this.createdAt = LocalDateTime.now();
+        this.title = title;
         this.severity = severity;
         this.creator = creator;
         this.summary = summary;
@@ -40,6 +42,14 @@ public class Ticket {
         return createdAt;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public boolean isArchived() {
+        return archived;
+    }
+
     public short getSeverity() {
         return severity;
     }
@@ -51,4 +61,6 @@ public class Ticket {
     public String getSummary() {
         return summary;
     }
+
+
 }
