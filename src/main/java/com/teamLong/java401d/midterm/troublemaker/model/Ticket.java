@@ -6,14 +6,15 @@ import java.time.LocalDateTime;
 @Entity
 public class Ticket {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
 
     private String title;
     LocalDateTime createdAt;
-    private short severity;
     private String summary;
     private boolean archived;
+    Severity ticketLvl;
+    String ticketLvlString;
 
     //database relation
     @ManyToOne
@@ -21,17 +22,39 @@ public class Ticket {
 
     public Ticket(){}
 
-    public Ticket(String title, short severity, UserAccount creator, String summary){
+    public Ticket(String title, Severity ticketLvl, UserAccount creator, String summary){
         this.createdAt = LocalDateTime.now();
         this.title = title;
-        this.severity = severity;
+        this.ticketLvl = ticketLvl;
         this.creator = creator;
         this.summary = summary;
         this.archived = false;
     }
 
-
-
+//    public Ticket(String title, String ticketLvlString, UserAccount creator, String summary){
+//        Severity severity = Severity.LOW;
+//        switch(ticketLvlString){
+//            case "LOW":
+//                severity = Severity.LOW;
+//                break;
+//            case "MEDIUM":
+//                severity = Severity.MEDIUM;
+//                break;
+//            case "HIGH":
+//                severity = Severity.HIGH;
+//                break;
+//            case "URGENT":
+//                severity = Severity.URGENT;
+//                break;
+//        }
+//        this.createdAt = LocalDateTime.now();
+//        this.title = title;
+//        this.ticketLvl = severity;
+//        this.creator = creator;
+//        this.summary = summary;
+//        this.archived = false;
+//    }
+  
     //getters & setters
 
     public long getId() {
@@ -50,9 +73,7 @@ public class Ticket {
         return archived;
     }
 
-    public short getSeverity() {
-        return severity;
-    }
+    public Severity getTicketLvl() { return ticketLvl; }
 
     public UserAccount getCreator() {
         return creator;
@@ -66,9 +87,9 @@ public class Ticket {
         this.title = title;
     }
 
-    public void setSeverity(short severity) {
-        this.severity = severity;
-    }
+    public void setTicketLvl(Severity ticketLvl) { this.ticketLvl = ticketLvl; }
+
+    public void setTicketLvlString(String ticketLvlString) { this.ticketLvlString = ticketLvlString; }
 
     public void setSummary(String summary) {
         this.summary = summary;

@@ -19,13 +19,13 @@ public class UserAccount implements UserDetails{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(unique = true)
-    @Email
+    @Email(message = "E-mail address is incorrectly formatted.")
     private String username;
     private String firstName;
     private String lastName;
 
     @NotEmpty
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^\\da-zA-Z]).{6,}$", message = "Password must be at least 6 characters long, contain a lower and upper case letter and one special character.")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^\\da-zA-Z]).{6,}$", message = "Password must be at least 6 characters long, contain a lower and upper case letter, a number, and one special character.")
     private String password;
 
     @NotEmpty(message = "Password must match")
