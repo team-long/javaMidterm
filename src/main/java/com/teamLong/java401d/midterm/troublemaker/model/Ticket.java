@@ -26,6 +26,9 @@ public class Ticket {
     @OnDelete(action = OnDeleteAction.CASCADE)
     UserAccount creator;
 
+    @OneToMany()
+    public List<Update> updates;
+
     public Ticket(){}
 
     public Ticket(String title, Severity ticketLvl, UserAccount creator, String summary){
@@ -37,6 +40,8 @@ public class Ticket {
         this.archived = false;
     }
 
+
+    //getters and setters
     public long getId() {
         return id;
     }
@@ -63,6 +68,10 @@ public class Ticket {
         return summary;
     }
 
+    public List<Update> getUpdates() {
+        return updates;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -79,6 +88,5 @@ public class Ticket {
         this.archived = archived;
     }
 
-    @OneToMany()
-    public List<Update> updates;
+
 }
