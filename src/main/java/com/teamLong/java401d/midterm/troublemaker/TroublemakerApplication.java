@@ -28,6 +28,7 @@ public class TroublemakerApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TroublemakerApplication.class, args);
+		System.out.println("http://localhost:8080/login");
 	}
 
 	@Bean
@@ -35,29 +36,23 @@ public class TroublemakerApplication {
 		return () -> {
 			if(roleRepository.findByRole("admin") == null) {
 				roleRepository.save(new RoleType("admin"));
+			}
+			if(roleRepository.findByRole("user") == null) {
 				roleRepository.save(new RoleType("user"));
+			}
+			if(userRepository.findByUsername("troublemakeraws@gmail.com") == null) {
 
 				UserAccount admin = new UserAccount();
-				admin.setUsername("admin@codefellows.com");
+				admin.setUsername("troublemakeraws@gmail.com");
 				admin.setPassword(encoder.encode("admin"));
 				admin.setConfirmPassword((encoder.encode("admin")));
 				admin.getRoleTypes().add(roleRepository.findByRole("user"));
 				admin.getRoleTypes().add(roleRepository.findByRole("admin"));
-
-				UserAccount adminTwo = new UserAccount();
-				adminTwo.setUsername("troublemakeraws@gmail.com");
-				adminTwo.setPassword(encoder.encode("admin"));
-				adminTwo.setConfirmPassword((encoder.encode("admin")));
-				adminTwo.getRoleTypes().add(roleRepository.findByRole("user"));
-				adminTwo.getRoleTypes().add(roleRepository.findByRole("admin"));
-
 				userRepository.save(admin);
 				userRepository.save(adminTwo);
 				Ticket ticket = new Ticket("Example Ticket: Test", Severity.HIGH, admin, "Test");
 				ticketRepository.save(ticket);
 			}
-
-			System.out.println("http://localhost:8080/login");
 		};
 
 

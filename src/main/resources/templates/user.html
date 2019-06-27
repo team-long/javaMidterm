@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css}"  media="screen,projection"/>
+    <title>Generate Ticket</title>
+</head>
+<body>
+    <div th:replace="fragments/header :: header"></div>
+    <center>
+        <div id="profile">
+            <h2>Your Profile</h2>
+            <p th:text="${'Email: ' + principal.username}"></p>
+            <p th:text="${'First Name: ' + principal.firstName}"></p>
+            <p th:text="${'Last Name: ' + principal.lastName}"></p>
+            <p th:text="${'Team: ' + principal.team}"></p>
+
+            <h4 th:if="${principal.isAdmin()}">Create Admin Role</h4>
+            <form method="post" action="/profile" th:if="${principal.isAdmin()}">
+                <select name="makeUserAdmin" style="display: block; width: 50%;">
+                    <fragment th:each="user: ${users}" >
+                    <option th:if="${!user.isAdmin()}" th:value="${user.username}" th:text="${user.username}"></option>
+                    <option th:if="${user.isAdmin()}" th:value="${user.username}" th:text="${user.username + ' (Admin)'}"></option>
+                    </fragment>
+                </select>
+                <input type="submit" value="Make Admin"/>
+            </form>
+        </div>
+
+    </center>
+
+    <div th:replace="fragments/footer :: footer"></div>
+<!--JavaScript at end of body for optimized loading-->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+</body>
+</html>
