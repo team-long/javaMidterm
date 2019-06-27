@@ -6,16 +6,16 @@
             <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="/main">Home</a></li>
-                <li><a href="/tickets/all">All Tickets</a></li>
+                <li th:if="${principal.isAdmin()}"><a href="/tickets/all">All Tickets</a></li>
                 <li><a href="/archive">Archive</a></li>
-                <li><a href="/profile">Profile</a></li>
+                <li><a href="/profile" th:text="${'Welcome, ' + principal.username}"></a></li>
                 <li><a href="/potato">Logout</a></li>
             </ul>
         </div>
     </nav>
     <ul class="sidenav" id="mobile-demo">
         <li><a href="/main">Home</a></li>
-        <li><a href="/tickets/all">All Tickets</a></li>
+        <li th:if="${principal.isAdmin()}"><a href="/tickets/all">All Tickets</a></li>
         <li><a href="/archive">Archive</a></li>
         <li><a href="/profile">Profile</a></li>
         <li><a href="/potato">Logout</a></li>

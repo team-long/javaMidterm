@@ -17,7 +17,7 @@
 
     <p th:if="${ticket.archived}">This ticket has been resolved!</p>
 
-    <form method="post" th:action="@{/tickets/resolve}">
+    <form th:if="${principal.isAdmin() and !ticket.archived}" method="post" th:action="@{/tickets/resolve}">
         <input name="ticketId" hidden th:value="${ticket.id}">
         <input type="submit" value="Resolve Ticket"/>
     </form>
@@ -38,10 +38,10 @@
         </ul>
     </div>
 
-    <form method="post" th:action="@{/tickets/comment}">
+    <form th:unless="${ticket.archived}" method="post" th:action="@{/tickets/comment}">
         <textarea name="update"></textarea>
         <input name="ticketId" hidden th:value="${ticket.id}">
-        <input type="submit"/>
+        <input type="submit" value="Post Comment"/>
     </form>
 
     <div th:replace="fragments/footer :: footer"></div>

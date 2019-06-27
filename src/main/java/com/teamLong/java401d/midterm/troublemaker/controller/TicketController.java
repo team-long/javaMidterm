@@ -40,18 +40,21 @@ public class TicketController {
     TicketRepository ticketRepository;
 
     @GetMapping("/ticket")
-    public String createTicketPage(Model model){
+    public String createTicketPage(Model model, Principal user){
         List<Enum> enumValues = new ArrayList<Enum>(EnumSet.allOf(Severity.class));
+        model.addAttribute("principal", userRepository.findByUsername(user.getName()));
         model.addAttribute("enumValues", enumValues);
         return "ticket";
     }
 
     @GetMapping("/ticket/{ticketId}")
-    public String getOneTicketPage(@PathVariable long ticketId, Model m ){
+    public String getOneTicketPage(@PathVariable long ticketId, Model m, Principal user ){
         Ticket oneTicket = ticketRepository.findById(ticketId);
+        UserAccount getUser = userRepository.findByUsername(user.getName());
         List<Update> comments = updateRepository.findAllByTicketId(ticketId);
         m.addAttribute("comments", comments);
         m.addAttribute("ticket", oneTicket);
+        m.addAttribute("principal", getUser);
         return "ticket-detail";
     }
 
@@ -75,6 +78,7 @@ public class TicketController {
         model.addAttribute("loggedInUser", loggedInUser);
         Iterable<Ticket> tickets = ticketRepository.findAll();
         model.addAttribute("tickets", tickets);
+        model.addAttribute("principal", userRepository.findByUsername(principal.getName()));
         return "allTickets";
     }
 
@@ -83,7 +87,7 @@ public class TicketController {
         Ticket ticket = ticketRepository.findById(id);
         model.addAttribute("ticket", ticket);
         UserAccount loggedInUser = userRepository.findByUsername(principal.getName());
-        model.addAttribute("loggedInUser", loggedInUser);
+        model.addAttribute("principal", loggedInUser);
         List<Enum> enumValues = new ArrayList<Enum>(EnumSet.allOf(Severity.class));
         model.addAttribute("enumValues", enumValues);
         return "edit";
