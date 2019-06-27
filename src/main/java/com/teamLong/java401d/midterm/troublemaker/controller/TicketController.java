@@ -1,15 +1,12 @@
 package com.teamLong.java401d.midterm.troublemaker.controller;
 
-<<<<<<< HEAD
 
 import com.teamLong.java401d.midterm.troublemaker.model.Severity;
 import com.teamLong.java401d.midterm.troublemaker.model.Ticket;
 import com.teamLong.java401d.midterm.troublemaker.model.UserAccount;
-=======
 import com.teamLong.java401d.midterm.troublemaker.email.EmailSender;
 import com.teamLong.java401d.midterm.troublemaker.model.*;
 import com.teamLong.java401d.midterm.troublemaker.repository.RoleRepository;
->>>>>>> 28244c5c191415d7b62809b2d44050ba15c92ad2
 import com.teamLong.java401d.midterm.troublemaker.repository.TicketRepository;
 import com.teamLong.java401d.midterm.troublemaker.repository.UpdateRepository;
 import com.teamLong.java401d.midterm.troublemaker.repository.UserRepository;
