@@ -1,8 +1,7 @@
 package com.teamLong.java401d.midterm.troublemaker.model;
 
 import javax.persistence.*;
-import javax.print.attribute.standard.Severity;
-import java.lang.reflect.Array;
+
 import java.time.LocalDateTime;
 
 @Entity
