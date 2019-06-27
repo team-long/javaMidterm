@@ -30,6 +30,9 @@ public class EmailSender {
             case("CREATE"):
                 mail = new TicketCreationEmail(user, ticket, emails);
                 break;
+            case("RESOLVED"):
+                mail = new TicketResolutionEmail(user, ticket);
+                break;
         }
 
         System.out.print(mail.htmlBody);
@@ -76,7 +79,7 @@ class Email {
     public Email() {};
 
     public Email(UserAccount user) {
-        this.recicipientName = user.getFirstName() + " " + user.getLastName();
+        this.recicipientName = user.getUsername();
         this.recicipientEmail.add(user.getUsername());
     }
 }
@@ -90,7 +93,7 @@ class IntroEmail extends Email {
 
         htmlBody = "<h1>Welcome to Troublemaker, " + recicipientName + "!</h1>"
                 + "<p>Thanks for registering. "
-                + "Visit <a href='https://aws.amazon.com/sdk-for-java/'>"
+                + "Visit <a href='troublemaker.us-west-2.elasticbeanstalk.com/'>"
                 + "Troublemaker</a> to begin reporting issues.";
 
         textBody = "Welcome to Troublemaker, " + recicipientName + "! Visit our site to report issues.";
@@ -106,13 +109,24 @@ class TicketCreationEmail extends Email {
         recicipientEmail = emails;
 
         htmlBody = "<h1>Ticket #" + ticket.getId() + " has been created by " + recicipientName + "!</h1>"
-                + "<p> Visit <a href='https://aws.amazon.com/sdk-for-java/'>"
+                + "<p> Visit <a href='troublemaker.us-west-2.elasticbeanstalk.com/'>"
                 + "Troublemaker</a> to begin resolving the issue.";
 
         textBody = "Ticket #" + ticket.getId() + "has been created by" + recicipientName + ". Visit Troublemaker to begin resolving the issue.";
     }
 }
 
-class TicketResolvedEmail extends Email {
+class TicketResolutionEmail extends Email {
+
+    public TicketResolutionEmail(UserAccount user, Ticket ticket) {
+        super(user);
+        subject = "Your Ticket has been resolved";
+
+        htmlBody = "<h1>Ticket #" + ticket.getId() + " has been resolved!</h1>"
+                + "<p> Visit <a href='troublemaker.us-west-2.elasticbeanstalk.com/'>"
+                + "Troublemaker</a> for any more issues.";
+
+        textBody = "Ticket #" + ticket.getId() + "has been resolved! Visit Troublemaker for any further issues.";
+    }
 
 }
