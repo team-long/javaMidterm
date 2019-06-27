@@ -135,4 +135,7 @@ public class UserAccount implements UserDetails{
         roleTypes.forEach(roleType -> roles.add(new SimpleGrantedAuthority("role_" + roleType.getRole())));
         return roles;
     }
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public List<Ticket> tickets;
 }

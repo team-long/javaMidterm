@@ -23,6 +23,11 @@
             <li th:text="${'Time Created: ' + ticket.createdAt}"></li>
         </ul>
 
+    <form method="post" action="/ticket/update">
+        <textarea name="update"></textarea>
+        <input type="submit"/>
+    </form>
+
     <div th:replace="fragments/footer :: footer"></div>
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
