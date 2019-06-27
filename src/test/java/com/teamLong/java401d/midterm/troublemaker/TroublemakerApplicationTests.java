@@ -55,8 +55,14 @@ public class TroublemakerApplicationTests {
 
 		@WithMockUser
 		@Test
+		public void testCreateTicketPage() throws Exception {
+			mvc.perform(get("/ticket").with(testUser())).andExpect(content().string(containsString("Create a Ticket")));
+		}
+
+		@WithMockUser
+		@Test
 		public void testAllTicketPage() throws Exception {
-			mvc.perform(get("/tickets/all").with(testUser())).andExpect(content().string(containsString("Ticket Management")));
+			mvc.perform(get("/tickets/all").with(testUser())).andExpect(content().string(containsString("All Tickets")));
 		}
 
 //		@Test
