@@ -23,8 +23,17 @@
             <li th:text="${'Time Created: ' + ticket.createdAt}"></li>
         </ul>
 
-    <form method="post" action="/ticket/update">
+    <div>
+        <ul>
+            <li th:each="comment: ${comments}" th:text="${comment.username}"></li>
+            <li th:each="comment: ${comments}" th:text="${comment.timeStamp}"></li>
+            <li th:each="comment: ${comments}" th:text="${comment.comments}"></li>
+        </ul>
+    </div>
+
+    <form method="post" th:action="@{/tickets/comment}">
         <textarea name="update"></textarea>
+        <input name="ticketId" hidden th:value="${ticket.id}">
         <input type="submit"/>
     </form>
 

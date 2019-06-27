@@ -15,6 +15,16 @@ public class Update {
 
     LocalDateTime timeStamp;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setUsername(String username) {
+        this.name = username;
+    }
+
+    String name;
+
     @ManyToOne()
     @JoinColumn()
     Ticket ticket;
@@ -33,10 +43,11 @@ public class Update {
 
     public Update(){};
 
-    public Update(String comments, Ticket ticket) {
+    public Update(String comments, Ticket ticket, String username) {
         this.comments = comments;
         this.timeStamp = LocalDateTime.now();
         this.ticket = ticket;
+        this.name = username;
     }
 
     public String getTimeStamp() {

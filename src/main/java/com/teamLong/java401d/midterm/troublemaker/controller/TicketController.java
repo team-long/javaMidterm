@@ -3,9 +3,11 @@ package com.teamLong.java401d.midterm.troublemaker.controller;
 import com.teamLong.java401d.midterm.troublemaker.email.EmailSender;
 import com.teamLong.java401d.midterm.troublemaker.model.Severity;
 import com.teamLong.java401d.midterm.troublemaker.model.Ticket;
+import com.teamLong.java401d.midterm.troublemaker.model.Update;
 import com.teamLong.java401d.midterm.troublemaker.model.UserAccount;
 import com.teamLong.java401d.midterm.troublemaker.repository.RoleRepository;
 import com.teamLong.java401d.midterm.troublemaker.repository.TicketRepository;
+import com.teamLong.java401d.midterm.troublemaker.repository.UpdateRepository;
 import com.teamLong.java401d.midterm.troublemaker.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +30,9 @@ import java.util.List;
 public class TicketController {
 
     @Autowired
+    UpdateRepository updateRepository;
+
+    @Autowired
     RoleRepository roleRepository;
 
     @Autowired
@@ -46,6 +51,8 @@ public class TicketController {
     @GetMapping("/ticket/{ticketId}")
     public String getOneTicketPage(@PathVariable long ticketId, Model m ){
         Ticket oneTicket = ticketRepository.findById(ticketId);
+        List<Update> comments = updateRepository.findAllByTicketId(ticketId);
+        m.addAttribute("comments", comments);
         m.addAttribute("ticket", oneTicket);
         return "ticket-detail";
     }
@@ -97,6 +104,14 @@ public class TicketController {
             throw new TicketDoesNotBelongToYou("There is only one thing we say to death. Not today.\n You do not own this ticket");
         }
         return new RedirectView("/main");
+    }
+
+    @PostMapping("tickets/comment")
+    public String addComment(long ticketId, String update, Principal user) {
+        Ticket ticket = ticketRepository.findById(ticketId);
+        Update createComment = new Update(update, ticket, user.getName());
+        updateRepository.save(createComment);
+        return "redirect:/ticket/"+ticketId;
     }
 
 
