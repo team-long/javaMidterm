@@ -17,6 +17,10 @@ main {
     background-color: #ffffff !important;
     border-style: none !important;
 }
+.archive {
+    background-color: #cccccc !important;
+    border-style: none !important;
+}
 
 #main1button{
     text-align:right;
@@ -74,6 +78,10 @@ footer {
 .btn2 {
     color: #ff9900 !important;
     background-color: #ffffff !important;
+}
+.btnArchive {
+    color: #ff9900 !important;
+    background-color: #cccccc !important;
 }
 
 .btn:hover {

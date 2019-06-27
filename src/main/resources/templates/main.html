@@ -68,16 +68,17 @@
                         <a class="ticketLink">Example Ticket Title</a>
                         </span>
                         <div class="push">
-                        <form method="GET" action="#">
                             <!--Example: th:value="${ticket.id} to see detail page-->
                             <!--Example: th:value="${ticket.id} for adding to user favorites-->
+
                             <input name="Symbol" type="hidden">
                             <button class="secondary-content btn2 tooltipped" data-position="top"
                                     data-tooltip="Hint: You can only archive tickets that are resolved." type="submit" ><i class="material-icons Small">archive</i></button>
+                            </form>
+
                             <input name="none" type="hidden">
                             <button class="secondary-content btn2 tooltipped" data-position="top"
                                     data-tooltip="See more details and modify this ticket." type="submit" ><i class="material-icons Small">edit</i></button>
-                        </form>
                         </div>
                     </div>
                     <!--th:text: Ticket Summary-->
@@ -99,13 +100,12 @@
                         <a class="ticketLink" th:href="@{/ticket/} + ${ticket.id}">
                             <span th:text="${ticket.title}"></span></a>
                         </span>
-                        <form method="GET" th:action="@{/edit/} + ${ticket.id}" class="push">
                             <!--Example: th:value="${ticket.id} to see detail page-->
                             <input name="none" type="hidden">
-                            <button class="secondary-content btn2 tooltipped" data-position="top"
-                               data-tooltip="See more details and modify this ticket." type="submit" ><i class="material-icons Small">edit</i></button>
-                        </form>
-                        <form method="POST" action="#">
+                            <button class="secondary-content waves-effect waves-light btn2 modal-trigger tooltipped push" href="#modal2" data-position="top"
+                                    data-tooltip="See more details and modify this ticket." ><i class="material-icons Small">edit</i></button>
+
+                        <form th:action="@{/delete/ticket/} + ${ticket.id}" method="POST">
                             <!--Example: th:value="${ticket.id} for adding to user favorites-->
                             <input name="Symbol" type="hidden">
                             <button class="secondary-content btn2 tooltipped" data-position="top"
@@ -114,11 +114,41 @@
                     </div>
                     <!--th:text: Ticket Summary-->
                     <div class="collapsible-body"><span th:text="${ticket.summary}"></span></div>
+
+                <div id="modal2" class="modal">
+                    <div class="modal-content">
+                        <form th:action="@{/tickets/edit/} + ${ticket.id}" method="POST">
+                            <!--<input type="hidden" th:value="${ticket.id}">-->
+                            <label for="title2">Title</label><input type="text" name="title" id="title2" th:placeholder="${ticket.title}">
+                            <label form="severity2">Severity</label>
+
+                            <select name="ticketLvl" id="severity2" style="display:inline">
+
+                                <option value="" disabled selected>
+                                    <span th:text="${ticket.getTicketLvl().name()}"></span>
+                                </option>
+
+                                <option th:each = "enum : ${enumValues}" th:value="${enum}" th:text="${enum}"></option>
+
+                            </select>
+
+                            <label for="summary2">Summary</label>
+                            <input name="summary" id="summary2" type="text" maxlength="25" th:attr="placeholder=${ticket.summary}">
+                            <input type="submit" value="Update Ticket">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Save</a>
+                    </div>
+                </div>
                 </li>
             </ul>
         </div>
             <div class="col s12 m2 l2"></div>
     </div>
+
+
+
 </section>
 <div th:replace="fragments/footer :: footer"></div>
 <!--JavaScript at end of body for optimized loading-->

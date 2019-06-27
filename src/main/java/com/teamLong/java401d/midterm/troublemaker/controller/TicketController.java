@@ -132,7 +132,6 @@ public class TicketController {
         return "redirect:/ticket/"+ticketId;
     }
 
-
     @DeleteMapping("delete/ticket/{id}")
     public RedirectView deleteTicket(@PathVariable long id, Principal principal, Model model){
         Ticket ticket = ticketRepository.findById(id);
