@@ -147,6 +147,7 @@ public class TicketController {
         return new RedirectView("/main");
     }
 
+
 }
 
 @ResponseStatus(value = HttpStatus.FORBIDDEN)
