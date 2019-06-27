@@ -114,6 +114,20 @@ public class TicketController {
         return "redirect:/ticket/"+ticketId;
     }
 
+    @PostMapping("tickets/resolve")
+    public String resolveTicket(long ticketId, Principal principal) {
+        Ticket ticket = ticketRepository.findById(ticketId);
+        Set<RoleType> types = userRepository.findByUsername(principal.getName()).getRoleTypes();
+        List<String> typeNames = new ArrayList<>();
+        types.forEach(roleType -> typeNames.add(roleType.getRole()));
+        if(typeNames.contains("admin")) {
+            ticket.setArchived(true);
+            ticketRepository.save(ticket);
+            EmailSender.sendEmail(ticket.getCreator(), null, "RESOLVED", ticket);
+        }
+        return "redirect:/ticket/"+ticketId;
+    }
+
 
     @DeleteMapping("delete/ticket/{id}")
     public RedirectView deleteTicket(@PathVariable long id, Principal principal, Model model){

@@ -15,6 +15,13 @@
 
     <h1>Ticket Detail</h1>
 
+    <p th:if="${ticket.archived}">This ticket has been resolved!</p>
+
+    <form method="post" th:action="@{/tickets/resolve}">
+        <input name="ticketId" hidden th:value="${ticket.id}">
+        <input type="submit" value="Resolve Ticket"/>
+    </form>
+
         <ul>
             <li th:text="${'Ticket number: ' + ticket.id}"></li>
             <li th:text="${'Severity: ' + ticket.ticketLvl}"></li>
