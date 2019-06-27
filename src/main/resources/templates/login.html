@@ -43,6 +43,9 @@
                     ">
             <h4 style="margin: 0px 140px; color:#232f3e;">Login</h4>
             <form action="/login" class="col s12" method="post">
+                <div th:if="${error}">
+                    <p style="color: red;" th:text="${error}"></p>
+                </div>
                 <div class='row'>
                     <div class='col s12'>
                     </div>
@@ -60,9 +63,6 @@
                         <input class='validate' type='password' name='password' id='password' />
                         <label for='password'>Enter your password</label>
                     </div>
-                    <label style='float: right;'>
-                        <a class='pink-text' href='#!'><b>Forgot Password?</b></a>
-                    </label>
                 </div>
 
                 <br />
@@ -76,6 +76,7 @@
         </div>
         <div style="color:#6285af; border-left: 6px solid; height: 350px; margin: 100px 100px;"></div>
         <div>
+            <a name="registration"></a>
 
             <div class="z-depth-1 grey lighten-4 row" style="display: inline-block;
                 padding: 5px 48px 0px 48px;
@@ -85,7 +86,7 @@
                 <h4 style="margin: 0px 140px; color:#232f3e;">Register</h4>
                 <form id="password-form" method="post" th:action="@{/register}" autocomplete="on">
                     <div th:if="${errors}" th:each="error: ${errors}">
-                        <p th:text="${error}"></p>
+                        <p style="color: red;"  th:text="${error}"></p>
                     </div>
                     <div class='row'>
                         <div class='input-field col s12'>
@@ -142,7 +143,7 @@
             Reduce the rate of repeat incidents by defining closure rules to ensure effective resolution.</p>
     </div>
 </div>
-<div th:replace="fragments/footer :: footer"></div>
+<footer  th:replace="fragments/footer :: footer"></footer>
 </body>
 <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

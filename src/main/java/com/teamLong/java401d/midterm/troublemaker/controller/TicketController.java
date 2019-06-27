@@ -100,10 +100,7 @@ public class TicketController {
     @PostMapping("/tickets/edit/{id}")
     public RedirectView updateTicket(@PathVariable long id, String title, String ticketLvl, String summary, Principal principal, Model model){
         Ticket ticket = ticketRepository.findById(id);
-        Set<RoleType> types = userRepository.findByUsername(principal.getName()).getRoleTypes();
-        List<String> typeNames = new ArrayList<>();
-        types.forEach(roleType -> typeNames.add(roleType.getRole()));
-        if(ticket.getCreator().getUsername().equals(principal.getName()) || typeNames.contains("admin")){
+        if(ticket.getCreator().getUsername().equals(principal.getName()) || userRepository.findByUsername(principal.getName()).isAdmin()){
             ticket.setTitle(title);
             ticket.setTicketLvl(Severity.valueOf(ticketLvl));
             ticket.setSummary(summary);
@@ -125,10 +122,8 @@ public class TicketController {
     @PostMapping("tickets/resolve")
     public String resolveTicket(long ticketId, Principal principal) {
         Ticket ticket = ticketRepository.findById(ticketId);
-        Set<RoleType> types = userRepository.findByUsername(principal.getName()).getRoleTypes();
-        List<String> typeNames = new ArrayList<>();
-        types.forEach(roleType -> typeNames.add(roleType.getRole()));
-        if(typeNames.contains("admin")) {
+
+        if(userRepository.findByUsername(principal.getName()).isAdmin()) {
             ticket.setArchived(true);
             ticketRepository.save(ticket);
             EmailSender.sendEmail(ticket.getCreator(), null, "RESOLVED", ticket);

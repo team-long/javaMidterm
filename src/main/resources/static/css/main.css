@@ -164,3 +164,10 @@ footer {
     flex-direction: column;
   }
 }
+
+
+#profile {
+    background-color: white;
+    box-shadow: 10px 10px 5px -2px rgba(231,166,26,1);
+    width: 35%;
+}

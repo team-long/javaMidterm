@@ -28,13 +28,8 @@ public class HomeController {
     private TicketRepository ticketRepository;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index(Principal user) {
+    public String index() {
         return "redirect:/login";
-    }
-
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public String user() {
-        return "user";
     }
 
     // open test route for main

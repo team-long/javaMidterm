@@ -48,7 +48,7 @@ public class UserAccountController {
                 customErrors.add("Password must match.");
             }
             redirect.addFlashAttribute("errors", customErrors);
-            return "redirect:/login";
+            return "redirect:/login#registration";
         }
 
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
@@ -62,7 +62,13 @@ public class UserAccountController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String index() {
+    public String indexError(@RequestParam(value = "error", required=false) boolean error, RedirectAttributes redirect) {
+        if(error) {
+            redirect.addFlashAttribute("error", "Incorrect Credentials");
+            return "redirect:/login#registration";
+        }
         return "login";
     }
+
+
 }
