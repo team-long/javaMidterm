@@ -1,0 +1,77 @@
+#detailpage {
+ margin: 0px 100px;
+}
+
+.textspecial {
+    font-weight:600;
+    font-size: 20px;
+    color: #232f3e;
+}
+
+form {
+  margin-bottom: 2em;
+}
+
+.form__fields {
+  padding: 0;
+  border: none;
+  margin-bottom: 2em;
+}
+.field {
+  margin-bottom: 1.5em;
+  label {
+    display: block;
+    font-size: .75em;
+    line-height: 1em;
+    padding: .25em 0;
+    font-weight: bold;
+  }
+  input[type='text'],
+  input[type='url'],
+  textarea {
+    width: 100%;
+    padding: .5em;
+    border: 1px solid #272727;
+    color: #555;
+  }
+}
+
+.form__footer {
+  margin-top: 1em;
+  input {
+    display: block;
+    background: #eee;
+    text-align: center;
+  }
+}
+
+.block-list {
+  display: block;
+  list-style-type: none;
+  padding: 0;
+  li {
+    padding-bottom: .5em;
+  }
+}
+
+label input {
+  margin-right: .25em;
+  margin-top: -4px;
+  vertical-align: middle;
+}
+
+#generated-code {
+  border-top: 1px solid #272727;
+  padding: 2em 0;
+}
+
+.code-to-copy {
+  width: 100%;
+  min-height: 25em;
+  padding: 1em;
+  font-size: .85em;
+}
+
+.code-in-action {
+  a { display: block; }
+}

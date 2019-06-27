@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link href="/css/main.css" rel="stylesheet" />
+    <!--<link href="/css/ticket.css" rel="stylesheet" />-->
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link type="text/css" rel="stylesheet"
+          th:href="@{https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css}"
+          href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"  media="screen,projection"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<center class="mainheader">
+    <h4>Archived Tickets</h4>
+    <!--get total ticket count-->
+    <!--<div>-->
+    <!--<div class="mobilefriendlytext">You have (<span><a th:text="${principal.tickets.size()}" class="ticketLink" href='/login'>3</a></span>) Tickets Assigned.</div>-->
+    <!--</div>-->
+
+    <!--Create ticket modal popout-->
+
+
+</center>
+
+</div>
+
+<section id="alltickets" style="min-height: calc(100vh - 140px);">
+    <div class="row">
+        <div class="col s12 m2 l2"></div>
+        <div class="col s12 m8 l8">
+            <ul class="collapsible popout">
+
+                <li th:each="ticket : ${tickets}">
+
+                    <div class="collapsible-header box archived" style="display: flex;" th:switch="${ticket.getTicketLvl().name()}">
+                        <i th:case="LOW" class="material-icons medium severity4 tooltipped" data-position="left"
+                           data-tooltip="Severity 2 escalation subject to 30 min response time.">looks_4</i>
+                        <i th:case="MEDIUM" class="material-icons medium severity3 tooltipped" data-position="left"
+                           data-tooltip="Severity 2 escalation subject to 30 min response time.">looks_3</i>
+                        <i th:case="HIGH" class="material-icons medium severity2 tooltipped" data-position="left"
+                           data-tooltip="Severity 2 escalation subject to 30 min response time.">looks_two</i>
+                        <i th:case="URGENT" class="material-icons medium severity1 tooltipped" data-position="left"
+                           data-tooltip="Severity 2 escalation subject to 30 min response time.">looks_one</i>
+
+                        <span class="title mobilefriendlytext"/>
+                        <!--must add resolved class-->
+                        <a class="ticketLink box" th:href="@{/ticket/} + ${ticket.id}">
+                            <span th:text="${ticket.title}"></span>
+                        </a>
+                        </span>
+                        <p class="push"> Archived at:<span style="color: blue;" th:text="${ticket.getArchivedAt()}"></span>
+                        Created at:<span style="color: blue;" th:text="${ticket.getCreatedAt()}"></span></p>
+                        <!--<form method="GET" th:action="@{/edit/} + ${ticket.id}" class="push">-->
+                            <!--&lt;!&ndash;Example: th:value="${ticket.id} to see detail page&ndash;&gt;-->
+                            <!--<input name="none" type="hidden">-->
+                            <!--<button class="secondary-content btnArchive tooltipped" data-position="top"-->
+                                    <!--data-tooltip="See more details and modify this ticket." type="submit">-->
+                                <!--<i class="material-icons Small">edit</i></button>-->
+                        <!--</form>-->
+                        <!--<form th:action="@{/delete/ticket/} + ${ticket.id}" method="POST">-->
+                            <!--&lt;!&ndash;Example: th:value="${ticket.id} for adding to user favorites&ndash;&gt;-->
+                            <!--<input name="Symbol" type="hidden">-->
+                            <!--<button class="secondary-content btnArchive tooltipped" data-position="top"-->
+                                    <!--data-tooltip="Hint: You can only archive tickets that are resolved." type="submit">-->
+                                <!--<i class="material-icons Small">archive</i></button>-->
+                        <!--</form>-->
+                    <!--</div>-->
+                    <!--th:text: Ticket Summary-->
+
+                    </div>
+                    <div class="collapsible-body"><span th:text="${ticket.getSummary()}"></span></div>
+                </li>
+            </ul>
+        </div>
+        <div class="col s12 m2 l2"></div>
+    </div>
+</section>
+<div th:replace="fragments/footer :: footer"></div>
+<!--JavaScript at end of body for optimized loading-->
+<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script type="text/javascript" src="/javascript/style.js"></script>
+</body>
+</html>
+
+
+
+

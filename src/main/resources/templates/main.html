@@ -5,6 +5,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
     <link href="/css/main.css" rel="stylesheet" />
+    <!--<link href="/css/ticket.css" rel="stylesheet" />-->
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link type="text/css" rel="stylesheet"
@@ -16,25 +17,51 @@
 
 <center class="mainheader">
 
-    <div>
-        <div class="mobilefriendlytext">You have (<span><a class="ticketLink" href='/login'>3</a></span>) Tickets Assigned.</div>
+    <!--get total ticket count-->
+    <!--<div>-->
+        <!--<div class="mobilefriendlytext">You have (<span><a th:text="${principal.tickets.size()}" class="ticketLink" href='/login'>3</a></span>) Tickets Assigned.</div>-->
+    <!--</div>-->
+
+    <!--Create ticket modal popout-->
+
+        <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Create Ticket</a>
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <p>Create a new Ticket</p>
+            <form id="ticket" action="/create/ticket" method="post">
+                <div class="row">
+                    <div class="col s8 m8 l8">
+                        <label for="title">Title</label>
+                        <input type="text" name="title" id="title">
+                    </div>
+                    <div class="col s4 m4 l4">
+                        <label form="severity">Severity</label>
+                        <select form="ticket" name="ticketLvl" id="severity" style="display:inline">
+                            <option th:each = "enum : ${enumValues}" th:value= "${enum}" th:text="${enum}"></option>
+                        </select>
+                    </div>
+                </div>
+            <label for="summary">Summary</label><input name="summary" id="summary" type="text" maxlength="25">
+                <br>
+            <input type="submit" class="modal-close waves-effect waves-green btn" value="Submit">
+            </form>
+            </div>
+        </div>
     </div>
-    <div>
-        <a href="/ticket" class="waves-effect waves-light btn btn-small tooltipped" data-position="bottom"
-           data-tooltip="Create a new Trouble Ticket">Create Ticket</a>
-    </div>
-    </center>
+</center>
 
 </div>
 
-<section id="alltickets">
+<section id="alltickets" class="footerfix">
     <div class="row">
         <div class="col s12 m2 l2"></div>
         <div class="col s12 m8 l8">
             <ul class="collapsible popout">
+                    <!--th:text: Ticket Summary-->
+                    <div class="collapsible-body">Summary of your ticket</div>
                 <li th:each="ticket : ${tickets}">
-
-                        <div class="collapsible-header box" th:switch="${ticket.getTicketLvl().name()}">
+                        <div th:classappend="${ticket.archived} ? archived : emptyclass" class="collapsible-header box" style="display: flex;" th:switch="${ticket.getTicketLvl().name()}">
                         <i th:case="LOW" class="material-icons medium severity4 tooltipped" data-position="left"
                            data-tooltip="Severity 2 escalation subject to 30 min response time.">looks_4</i>
                         <i th:case="MEDIUM" class="material-icons medium severity3 tooltipped" data-position="left"
@@ -49,26 +76,53 @@
                         <a class="ticketLink" th:href="@{/ticket/} + ${ticket.id}">
                             <span th:text="${ticket.title}"></span></a>
                         </span>
-                        <form method="GET" th:action="@{/edit/} + ${ticket.id}" class="push">
-                            <!--Example: th:value="${ticket.id} to see detail page-->
                             <input name="none" type="hidden">
-                            <button class="secondary-content btn2 tooltipped" data-position="top"
-                               data-tooltip="See more details and modify this ticket." type="submit" ><i class="material-icons Small">edit</i></button>
-                        </form>
-                        <form method="POST" action="#">
+                            <button th:classappend="${ticket.archived} ? btnArchive : emptyclass" class="secondary-content waves-effect waves-light btn2 modal-trigger tooltipped push" href="#modal2" data-position="top"
+                                        data-tooltip="See more details and modify this ticket." ><i class="material-icons Small">edit</i></button>
+                        <form th:action="@{/delete/ticket/} + ${ticket.id}" method="POST">
                             <!--Example: th:value="${ticket.id} for adding to user favorites-->
                             <input name="Symbol" type="hidden">
-                            <button class="secondary-content btn2 tooltipped" data-position="top"
+                            <button  th:disabled="!${ticket.archived}" th:classappend="${ticket.archived} ? btnArchive : notarchivedbutton" class="secondary-content btn2 tooltipped" data-position="top"
                                data-tooltip="Hint: You can only archive tickets that are resolved." type="submit" ><i class="material-icons Small">archive</i></button>
                         </form>
                     </div>
                     <!--th:text: Ticket Summary-->
                     <div class="collapsible-body"><span th:text="${ticket.summary}"></span></div>
+
+                <div id="modal2" class="modal">
+                    <div class="modal-content">
+                        <form th:action="@{/tickets/edit/} + ${ticket.id}" method="POST">
+                            <!--<input type="hidden" th:value="${ticket.id}">-->
+                            <label for="title2">Title</label><input type="text" name="title" id="title2" th:placeholder="${ticket.title}">
+                            <label form="severity2">Severity</label>
+
+                            <select name="ticketLvl" id="severity2" style="display:inline">
+
+                                <option value="" disabled selected>
+                                    <span th:text="${ticket.getTicketLvl().name()}"></span>
+                                </option>
+
+                                <option th:each = "enum : ${enumValues}" th:value="${enum}" th:text="${enum}"></option>
+
+                            </select>
+
+                            <label for="summary2">Summary</label>
+                            <input name="summary" id="summary2" type="text" maxlength="25" th:attr="placeholder=${ticket.summary}">
+                            <input type="submit" value="Update Ticket">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Save</a>
+                    </div>
+                </div>
                 </li>
             </ul>
         </div>
             <div class="col s12 m2 l2"></div>
     </div>
+
+
+
 </section>
 <div th:replace="fragments/footer :: footer"></div>
 <!--JavaScript at end of body for optimized loading-->

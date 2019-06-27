@@ -130,23 +130,6 @@ public class TicketController {
         }
         return "redirect:/ticket/"+ticketId;
     }
-
-
-    @DeleteMapping("delete/ticket/{id}")
-    public RedirectView deleteTicket(@PathVariable long id, Principal principal, Model model){
-        Ticket ticket = ticketRepository.findById(id);
-        Set<RoleType> types = userRepository.findByUsername(principal.getName()).getRoleTypes();
-        List<String> typeNames = new ArrayList<>();
-        types.forEach(roleType -> typeNames.add(roleType.getRole()));
-        if(ticket.getCreator().getUsername().equals(principal.getName()) || typeNames.contains("admin")){
-            ticketRepository.deleteById(id);
-        } else {
-            throw new TicketDoesNotBelongToYou("There is only one thing we say to death. Not today.\n You do not own this ticket");
-        }
-        return new RedirectView("/main");
-    }
-
-
 }
 
 @ResponseStatus(value = HttpStatus.FORBIDDEN)

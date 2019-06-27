@@ -1,5 +1,8 @@
 package com.teamLong.java401d.midterm.troublemaker.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -27,6 +30,7 @@ public class Update {
 
     @ManyToOne()
     @JoinColumn()
+    @OnDelete(action = OnDeleteAction.CASCADE)
     Ticket ticket;
 
     public Ticket getTicket() {

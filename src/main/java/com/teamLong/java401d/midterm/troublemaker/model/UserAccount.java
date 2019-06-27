@@ -127,6 +127,8 @@ public class UserAccount implements UserDetails{
         return team;
     }
 
+    public List<Ticket> getTickets() { return tickets; }
+
     public void setTeam(String team) {
         this.team = team;
     }

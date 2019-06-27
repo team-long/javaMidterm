@@ -27,6 +27,8 @@ public class HomeController {
     @Autowired
     private TicketRepository ticketRepository;
 
+
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index() {
         return "redirect:/login";

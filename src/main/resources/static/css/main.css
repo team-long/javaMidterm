@@ -4,6 +4,14 @@ body {
     background: #e5e5e5;
 }
 
+.headertext {
+    font-family: 'Roboto', sans-serif, 'arial';
+    font-weight: 400;
+    font-size: 30px;
+    color: #9b9b9b;
+    line-height: 1.5;
+}
+
 body {
     display: flex;
     min-height: 100vh;
@@ -15,6 +23,10 @@ main {
 
 .collapsible-header {
     background-color: #ffffff !important;
+    border-style: none !important;
+}
+.archived {
+    background-color: #cccccc !important;
     border-style: none !important;
 }
 
@@ -49,8 +61,8 @@ footer {
 	border: hidden;
 }
 
-#alltickets {
-
+.footerfix {
+    min-height: calc(100vh - 140px)
 }
 
 /* Mobile friendly text */
@@ -75,6 +87,13 @@ footer {
     color: #ff9900 !important;
     background-color: #ffffff !important;
 }
+.btnArchive {
+    color: #ff9900 !important;
+    background-color: #cccccc !important;
+}
+.notarchivedbutton{
+    color: #cccccc !important;
+}
 
 .btn:hover {
 	background-color: #ffd699 !important;
@@ -92,15 +111,19 @@ footer {
 }
 
 /* Pulse animation */
-.severity2 {
+.severity1 {
   font-weight: 800;
-  color: #ffab35 !important;
+  color: red !important;
 	-webkit-animation: flash linear 1.5s infinite;
   animation: flash linear 1.5s infinite;
 }
+.severity2 {
+  font-weight: 800;
+  color: #ff9d00 !important;
+}
 .severity3 {
   font-weight: 800;
-  color: #fffc5e !important;
+  color: #ffe65e !important;
 }
 .severity4 {
   font-weight: 800;
@@ -147,6 +170,7 @@ footer {
   flex-flow: row wrap;
   /* This aligns items to the end line on main-axis */
   justify-content: space-evenly;
+  margin: 25px 0px 35px 0px;
 }
 
 /* Medium screens */
@@ -164,7 +188,8 @@ footer {
     flex-direction: column;
   }
 }
-
+.modal-content {
+    background-color: white;
 
 #profile {
     background-color: white;
