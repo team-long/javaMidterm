@@ -43,6 +43,16 @@ public class UserAccount implements UserDetails{
                     name = "role_id", referencedColumnName = "id"))
     private Set<RoleType> roleTypes = new HashSet<RoleType>();
 
+    public boolean isAdmin() {
+        List<String> roleNames = new ArrayList<String>();
+        roleTypes.forEach(roleType -> roleNames.add(roleType.getRole()));
+        if(roleNames.contains("admin")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @Override
     public String getPassword() {
         return this.password;
@@ -117,6 +127,8 @@ public class UserAccount implements UserDetails{
         return team;
     }
 
+    public List<Ticket> getTickets() { return tickets; }
+
     public void setTeam(String team) {
         this.team = team;
     }
@@ -135,4 +147,7 @@ public class UserAccount implements UserDetails{
         roleTypes.forEach(roleType -> roles.add(new SimpleGrantedAuthority("role_" + roleType.getRole())));
         return roles;
     }
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public List<Ticket> tickets;
 }

@@ -21,6 +21,7 @@ repositories {
 }
 
 dependencies {
+	implementation platform('com.amazonaws:aws-java-sdk-bom:1.11.228')
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -30,5 +31,7 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	compile 'org.thymeleaf.extras:thymeleaf-extras-springsecurity4:3.0.4.RELEASE'
-	compile 'com.sendgrid:sendgrid-java:4.0.1'
+	compile 'com.amazonaws:aws-java-sdk-ses'
+//	compile 'javax.mail:javax.mail-api:1.6.1'
+	
 }

@@ -33,19 +33,30 @@ public class TroublemakerApplication {
 	@Bean
 	InitializingBean seedDatabase() {
 		return () -> {
-			roleRepository.save(new RoleType("admin"));
-			roleRepository.save(new RoleType("user"));
+			if(roleRepository.findByRole("admin") == null) {
+				roleRepository.save(new RoleType("admin"));
+				roleRepository.save(new RoleType("user"));
 
-			UserAccount admin = new UserAccount();
-			admin.setUsername("admin@codefellows.com");
-			admin.setPassword(encoder.encode("admin"));
-			admin.setConfirmPassword((encoder.encode("admin")));
-			admin.getRoleTypes().add(roleRepository.findByRole("user"));
-			admin.getRoleTypes().add(roleRepository.findByRole("admin"));
+				UserAccount admin = new UserAccount();
+				admin.setUsername("admin@codefellows.com");
+				admin.setPassword(encoder.encode("admin"));
+				admin.setConfirmPassword((encoder.encode("admin")));
+				admin.getRoleTypes().add(roleRepository.findByRole("user"));
+				admin.getRoleTypes().add(roleRepository.findByRole("admin"));
 
-			userRepository.save(admin);
-//			Ticket ticket = new Ticket("title", Severity.HIGH, admin, "Test");
-//			ticketRepository.save(ticket);
+				UserAccount adminTwo = new UserAccount();
+				adminTwo.setUsername("troublemakeraws@gmail.com");
+				adminTwo.setPassword(encoder.encode("admin"));
+				adminTwo.setConfirmPassword((encoder.encode("admin")));
+				adminTwo.getRoleTypes().add(roleRepository.findByRole("user"));
+				adminTwo.getRoleTypes().add(roleRepository.findByRole("admin"));
+
+				userRepository.save(admin);
+				userRepository.save(adminTwo);
+				Ticket ticket = new Ticket("initial ticker", Severity.HIGH, admin, "Test");
+				ticketRepository.save(ticket);
+			}
+
 			System.out.println("http://localhost:8080/login");
 		};
 

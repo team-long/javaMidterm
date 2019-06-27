@@ -17,9 +17,10 @@
 
 <center class="mainheader">
 
-    <div>
-        <div class="mobilefriendlytext">You have (<span><a class="ticketLink" href='/login'>3</a></span>) Tickets Assigned.</div>
-    </div>
+    <!--get total ticket count-->
+    <!--<div>-->
+        <!--<div class="mobilefriendlytext">You have (<span><a th:text="${principal.tickets.size()}" class="ticketLink" href='/login'>3</a></span>) Tickets Assigned.</div>-->
+    <!--</div>-->
 
     <!--Create ticket modal popout-->
 
@@ -48,19 +49,6 @@
             </div>
         </div>
     </div>
-        <!--<p>Create a new Ticket</p>-->
-        <!--<form id="ticket" action="/create/ticket" method="post">-->
-            <!--<label for="title">Title</label><input type="text" name="title" id="title">-->
-            <!--<label form="severity">Severity</label>-->
-            <!--<select form="ticket" name="ticketLvl" id="severity" style="display:inline">-->
-                <!--<option th:each = "enum : ${enumValues}" th:value= "${enum}" th:text="${enum}"></option>-->
-            <!--</select>-->
-            <!--<label for="summary">Summary</label><input name="summary" id="summary" type="text" maxlength="25">-->
-            <!--<input type="submit" class="modal-close waves-effect waves-green btn-flat" value="Create Ticket">-->
-    <!--</div>-->
-
-
-
 </center>
 
 </div>
@@ -108,7 +96,7 @@
 
                         <span class="title mobilefriendlytext"/>
                         <!--must add resolved class-->
-                        <a class="ticketLink" th:href="@{/edit/} + ${ticket.id}">
+                        <a class="ticketLink" th:href="@{/ticket/} + ${ticket.id}">
                             <span th:text="${ticket.title}"></span></a>
                         </span>
                         <form method="GET" th:action="@{/edit/} + ${ticket.id}" class="push">
