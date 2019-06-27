@@ -4,6 +4,14 @@ body {
     background: #e5e5e5;
 }
 
+.headertext {
+    font-family: 'Roboto', sans-serif, 'arial';
+    font-weight: 400;
+    font-size: 30px;
+    color: #9b9b9b;
+    line-height: 1.5;
+}
+
 body {
     display: flex;
     min-height: 100vh;
@@ -53,8 +61,8 @@ footer {
 	border: hidden;
 }
 
-#alltickets {
-
+.footerfix {
+    min-height: calc(100vh - 140px)
 }
 
 /* Mobile friendly text */
@@ -82,6 +90,9 @@ footer {
 .btnArchive {
     color: #ff9900 !important;
     background-color: #cccccc !important;
+}
+.notarchivedbutton{
+    color: #cccccc !important;
 }
 
 .btn:hover {

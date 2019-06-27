@@ -5,48 +5,69 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
     <link href="/css/main.css" rel="stylesheet" />
+    <link href="/css/ticket-detail.css" rel="stylesheet" />
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css}"  media="screen,projection"/>
 </head>
 <body>
-    <div th:replace="fragments/header :: header"></div>
+<div th:replace="fragments/header :: header"></div>
+<section id="detailpage" class="footerfix">
+    <header class="site-header">
+        <h3>Ticket Detail</h3>
+    </header>
 
-    <h1>Ticket Detail</h1>
+        <header class="form__header">
+            <p style="color:orange;" class="textspecial" th:if="${ticket.archived}">This ticket has been resolved!</p>
+        </header>
+        <fieldset class="form__fields"id="page-info">
+            <article class="field">
+                <form th:if="${principal.isAdmin() and !ticket.archived}" method="post" th:action="@{/tickets/resolve}">
+                    <input class="textspecial" name="ticketId" hidden th:value="${ticket.id}">
+                    <input type="submit" class="modal-close waves-effect waves-green btn" value="Resolve Ticket">
+                </form>
+            </article>
+            <article class="field">
+                <ul>
+                    <li>Ticket Number:   <span class="textspecial" th:text="${ticket.id}"></span></li>
+                    <li>Severity:   <span class="textspecial" th:text="${ticket.ticketLvl}"></span></li>
+                    <li>Summary:   <span class="textspecial" th:text="${ticket.summary}"></span></li>
+                    <li>Creator:   <span class="textspecial" th:text="${ticket.creator.username}"></span></li>
+                    <li>Time Created:   <span class="textspecial" th:text="${ticket.createdAt}"></span></li>
+                </ul>
+            </article>
+            <article class="field">
+                <form th:unless="${ticket.archived}" method="post" th:action="@{/tickets/comment}">
+                    <textarea name="update"></textarea>
+                    <input class="textspecial" name="ticketId" hidden th:value="${ticket.id}">
+                    <input type="submit" class="modal-close waves-effect waves-green btn" value="Post Comment">
+                </form>
 
-    <p th:if="${ticket.archived}">This ticket has been resolved!</p>
+            </article>
+            <article class="field">
+                <div>
+                    <ul th:each="comment: ${comments}">
+                        <li  class="textspecial" th:text="${comment.name}"></li>
+                        <li th:text="${comment.timeStamp}"></li>
+                        <li class="textspecial" th:text="${comment.comments}" style="color:blue;"></li>
+                    </ul>
+                </div>
+            </article>
+        </fieldset>
+        <fieldset class="form__fields" id="sites">
+            <article class="field">
+                    <section id="test-code">
+                        <div class="code-in-action"></div>
+                    </section>
+                </section>
+            </article>
+        </fieldset>
 
-    <form th:if="${principal.isAdmin() and !ticket.archived}" method="post" th:action="@{/tickets/resolve}">
-        <input name="ticketId" hidden th:value="${ticket.id}">
-        <input type="submit" value="Resolve Ticket"/>
-    </form>
 
-        <ul>
-            <li th:text="${'Ticket number: ' + ticket.id}"></li>
-            <li th:text="${'Severity: ' + ticket.ticketLvl}"></li>
-            <li th:text="${'Summary: ' + ticket.summary}"></li>
-            <li th:text="${'Creator: ' + ticket.creator.username}"></li>
-            <li th:text="${'Time Created: ' + ticket.createdAt}"></li>
-        </ul>
-
-    <div>
-        <ul th:each="comment: ${comments}">
-            <li th:text="${comment.name}"></li>
-            <li th:text="${comment.timeStamp}"></li>
-            <li th:text="${comment.comments}"></li>
-        </ul>
-    </div>
-
-    <form th:unless="${ticket.archived}" method="post" th:action="@{/tickets/comment}">
-        <textarea name="update"></textarea>
-        <input name="ticketId" hidden th:value="${ticket.id}">
-        <input type="submit" value="Post Comment"/>
-    </form>
-
-    <div th:replace="fragments/footer :: footer"></div>
-    <!--JavaScript at end of body for optimized loading-->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+<div th:replace="fragments/footer :: footer"></div>
+<!--JavaScript at end of body for optimized loading-->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 </body>
 </html>

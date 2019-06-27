@@ -53,7 +53,7 @@ public class TroublemakerApplication {
 
 				userRepository.save(admin);
 				userRepository.save(adminTwo);
-				Ticket ticket = new Ticket("initial ticker", Severity.HIGH, admin, "Test");
+				Ticket ticket = new Ticket("Example Ticket: Test", Severity.HIGH, admin, "Test");
 				ticketRepository.save(ticket);
 			}
 

@@ -14,16 +14,18 @@
 </head>
 <body>
     <div th:replace="fragments/header :: header"></div>
-    <h1>All tickets</h1>
+    <center>
+        <h4 class="headertext">Admins Only: All Tickets in Database</h4>
+    </center>
 
-    <section id="alltickets">
+    <section id="alltickets" class="footerfix">
         <div class="row">
             <div class="col s12 m2 l2"></div>
             <div class="col s12 m8 l8">
                 <ul class="collapsible popout">
                     <li th:each="ticket : ${tickets}">
 
-                        <div class="collapsible-header box" th:switch="${ticket.getTicketLvl().name()}">
+                        <div th:classappend="${ticket.archived} ? archived : emptyclass" class="collapsible-header box" style="display: flex;" th:switch="${ticket.getTicketLvl().name()}">
                             <i th:case="LOW" class="material-icons medium severity4 tooltipped" data-position="left"
                                data-tooltip="Severity 2 escalation subject to 30 min response time.">looks_4</i>
                             <i th:case="MEDIUM" class="material-icons medium severity3 tooltipped" data-position="left"
@@ -41,14 +43,14 @@
                             <form method="GET" th:action="@{/edit/} + ${ticket.id}" class="push">
                                 <!--Example: th:value="${ticket.id} to see detail page-->
                                 <input name="none" type="hidden">
-                                <button class="secondary-content btn2 tooltipped" data-position="top"
-                                        data-tooltip="See more details and modify this ticket." type="submit" ><i class="material-icons Small">edit</i></button>
+                                <button th:classappend="${ticket.archived} ? btnArchive : emptyclass" class="secondary-content waves-effect waves-light btn2 modal-trigger tooltipped push" href="#modal2" data-position="top"
+                                        data-tooltip="See more details and modify this ticket." ><i class="material-icons Small">edit</i></button>
                             </form>
-                            <form method="POST" action="#">
+                            <form method="POST" th:action="@{/delete/ticket/} + ${ticket.id}" >
                                 <!--Example: th:value="${ticket.id} for adding to user favorites-->
                                 <input name="Symbol" type="hidden">
-                                <button class="secondary-content btn2 tooltipped" data-position="top"
-                                        data-tooltip="Hint: You can only archive tickets that are resolved." type="submit" ><i class="material-icons Small">archive</i></button>
+                                <button  th:disabled="!${ticket.archived}" th:classappend="${ticket.archived} ? btnArchive : notarchivedbutton" class="secondary-content btn2 tooltipped" data-position="top"
+                                         data-tooltip="Hint: You can only archive tickets that are resolved." type="submit" ><i class="material-icons Small">archive</i></button>
                             </form>
                         </div>
                         <!--th:text: Ticket Summary-->
