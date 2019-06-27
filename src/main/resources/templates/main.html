@@ -46,7 +46,7 @@
 
                         <span class="title mobilefriendlytext"/>
                         <!--must add resolved class-->
-                        <a class="ticketLink" th:href="@{/edit/} + ${ticket.id}">
+                        <a class="ticketLink" th:href="@{/ticket/} + ${ticket.id}">
                             <span th:text="${ticket.title}"></span></a>
                         </span>
                         <form method="GET" th:action="@{/edit/} + ${ticket.id}" class="push">

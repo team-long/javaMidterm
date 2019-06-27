@@ -1,7 +1,11 @@
 package com.teamLong.java401d.midterm.troublemaker.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Ticket {
@@ -17,7 +21,9 @@ public class Ticket {
     String ticketLvlString;
 
     //database relation
-    @ManyToOne
+    @ManyToOne()
+    @JoinColumn()
+    @OnDelete(action = OnDeleteAction.CASCADE)
     UserAccount creator;
 
     public Ticket(){}
@@ -30,32 +36,6 @@ public class Ticket {
         this.summary = summary;
         this.archived = false;
     }
-
-//    public Ticket(String title, String ticketLvlString, UserAccount creator, String summary){
-//        Severity severity = Severity.LOW;
-//        switch(ticketLvlString){
-//            case "LOW":
-//                severity = Severity.LOW;
-//                break;
-//            case "MEDIUM":
-//                severity = Severity.MEDIUM;
-//                break;
-//            case "HIGH":
-//                severity = Severity.HIGH;
-//                break;
-//            case "URGENT":
-//                severity = Severity.URGENT;
-//                break;
-//        }
-//        this.createdAt = LocalDateTime.now();
-//        this.title = title;
-//        this.ticketLvl = severity;
-//        this.creator = creator;
-//        this.summary = summary;
-//        this.archived = false;
-//    }
-  
-    //getters & setters
 
     public long getId() {
         return id;
@@ -98,4 +78,7 @@ public class Ticket {
     public void setArchived(boolean archived) {
         this.archived = archived;
     }
+
+    @OneToMany()
+    public List<Update> updates;
 }

@@ -37,11 +37,6 @@ public class HomeController {
         return "user";
     }
 
-    @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public String admin(Principal user) {
-        return "admin";
-    }
-
     // open test route for main
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public String main(Principal user, Model model) {

@@ -15,6 +15,13 @@
 
     <h1>Ticket Detail</h1>
 
+    <p th:if="${ticket.archived}">This ticket has been resolved!</p>
+
+    <form th:if="${principal.isAdmin() and !ticket.archived}" method="post" th:action="@{/tickets/resolve}">
+        <input name="ticketId" hidden th:value="${ticket.id}">
+        <input type="submit" value="Resolve Ticket"/>
+    </form>
+
         <ul>
             <li th:text="${'Ticket number: ' + ticket.id}"></li>
             <li th:text="${'Severity: ' + ticket.ticketLvl}"></li>
@@ -22,6 +29,20 @@
             <li th:text="${'Creator: ' + ticket.creator.username}"></li>
             <li th:text="${'Time Created: ' + ticket.createdAt}"></li>
         </ul>
+
+    <div>
+        <ul th:each="comment: ${comments}">
+            <li th:text="${comment.name}"></li>
+            <li th:text="${comment.timeStamp}"></li>
+            <li th:text="${comment.comments}"></li>
+        </ul>
+    </div>
+
+    <form th:unless="${ticket.archived}" method="post" th:action="@{/tickets/comment}">
+        <textarea name="update"></textarea>
+        <input name="ticketId" hidden th:value="${ticket.id}">
+        <input type="submit" value="Post Comment"/>
+    </form>
 
     <div th:replace="fragments/footer :: footer"></div>
     <!--JavaScript at end of body for optimized loading-->
