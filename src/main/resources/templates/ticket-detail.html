@@ -24,10 +24,10 @@
         </ul>
 
     <div>
-        <ul>
-            <li th:each="comment: ${comments}" th:text="${comment.username}"></li>
-            <li th:each="comment: ${comments}" th:text="${comment.timeStamp}"></li>
-            <li th:each="comment: ${comments}" th:text="${comment.comments}"></li>
+        <ul th:each="comment: ${comments}">
+            <li th:text="${comment.name}"></li>
+            <li th:text="${comment.timeStamp}"></li>
+            <li th:text="${comment.comments}"></li>
         </ul>
     </div>
 

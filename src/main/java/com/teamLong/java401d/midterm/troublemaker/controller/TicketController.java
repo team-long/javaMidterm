@@ -1,10 +1,7 @@
 package com.teamLong.java401d.midterm.troublemaker.controller;
 
 import com.teamLong.java401d.midterm.troublemaker.email.EmailSender;
-import com.teamLong.java401d.midterm.troublemaker.model.Severity;
-import com.teamLong.java401d.midterm.troublemaker.model.Ticket;
-import com.teamLong.java401d.midterm.troublemaker.model.Update;
-import com.teamLong.java401d.midterm.troublemaker.model.UserAccount;
+import com.teamLong.java401d.midterm.troublemaker.model.*;
 import com.teamLong.java401d.midterm.troublemaker.repository.RoleRepository;
 import com.teamLong.java401d.midterm.troublemaker.repository.TicketRepository;
 import com.teamLong.java401d.midterm.troublemaker.repository.UpdateRepository;
@@ -25,6 +22,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class TicketController {
@@ -94,8 +92,10 @@ public class TicketController {
     @PostMapping("/tickets/edit/{id}")
     public RedirectView updateTicket(@PathVariable long id, String title, String ticketLvl, String summary, Principal principal, Model model){
         Ticket ticket = ticketRepository.findById(id);
-        if(ticket.getCreator().getUsername().equals(principal.getName())){
-//            ticket.setArchived();
+        Set<RoleType> types = userRepository.findByUsername(principal.getName()).getRoleTypes();
+        List<String> typeNames = new ArrayList<>();
+        types.forEach(roleType -> typeNames.add(roleType.getRole()));
+        if(ticket.getCreator().getUsername().equals(principal.getName()) || typeNames.contains("admin")){
             ticket.setTitle(title);
             ticket.setTicketLvl(Severity.valueOf(ticketLvl));
             ticket.setSummary(summary);
@@ -118,7 +118,10 @@ public class TicketController {
     @DeleteMapping("delete/ticket/{id}")
     public RedirectView deleteTicket(@PathVariable long id, Principal principal, Model model){
         Ticket ticket = ticketRepository.findById(id);
-        if(ticket.getCreator().getUsername().equals(principal.getName())){
+        Set<RoleType> types = userRepository.findByUsername(principal.getName()).getRoleTypes();
+        List<String> typeNames = new ArrayList<>();
+        types.forEach(roleType -> typeNames.add(roleType.getRole()));
+        if(ticket.getCreator().getUsername().equals(principal.getName()) || typeNames.contains("admin")){
             ticketRepository.deleteById(id);
         } else {
             throw new TicketDoesNotBelongToYou("There is only one thing we say to death. Not today.\n You do not own this ticket");
