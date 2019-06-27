@@ -40,10 +40,10 @@ public class TroublemakerApplication {
 			if(roleRepository.findByRole("user") == null) {
 				roleRepository.save(new RoleType("user"));
 			}
-			if(userRepository.findByUsername("admin@codefellows.com") == null) {
+			if(userRepository.findByUsername("troublemakeraws@gmail.com") == null) {
 
 				UserAccount admin = new UserAccount();
-				admin.setUsername("admin@codefellows.com");
+				admin.setUsername("troublemakeraws@gmail.com");
 				admin.setPassword(encoder.encode("admin"));
 				admin.setConfirmPassword((encoder.encode("admin")));
 				admin.getRoleTypes().add(roleRepository.findByRole("user"));
