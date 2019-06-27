@@ -3,6 +3,7 @@ package com.teamLong.java401d.midterm.troublemaker.model;
 import javax.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Archive {
@@ -15,20 +16,27 @@ public class Archive {
     Severity ticketLvl;
     private String summary;
     private boolean archived;
+    LocalDateTime archivedAt;
 
     //database relation
     @ManyToOne
     UserAccount creator;
 
-    public Archive(){}
+    @OneToMany()
+    public List<Update> updates;
 
-    public Archive(String title, Severity ticketLvl, UserAccount creator, String summary){
-        this.createdAt = LocalDateTime.now();
+    public Archive(){
+        this.archivedAt = LocalDateTime.now();
+    }
+
+    public Archive(String title, Severity ticketLvl, UserAccount creator, String summary, LocalDateTime createdAt){
+        this.createdAt = createdAt;
         this.title = title;
         this.ticketLvl = ticketLvl;
         this.creator = creator;
         this.summary = summary;
         this.archived = true;
+        this.archivedAt = LocalDateTime.now();
     }
 
     public long getId() {
@@ -85,5 +93,9 @@ public class Archive {
 
     public void setCreator(UserAccount creator) {
         this.creator = creator;
+    }
+
+    public List<Update> getUpdates() {
+        return updates;
     }
 }
