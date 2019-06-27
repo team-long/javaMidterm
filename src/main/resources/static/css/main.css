@@ -92,15 +92,19 @@ footer {
 }
 
 /* Pulse animation */
-.severity2 {
+.severity1 {
   font-weight: 800;
-  color: #ffab35 !important;
+  color: red !important;
 	-webkit-animation: flash linear 1.5s infinite;
   animation: flash linear 1.5s infinite;
 }
+.severity2 {
+  font-weight: 800;
+  color: #ff9d00 !important;
+}
 .severity3 {
   font-weight: 800;
-  color: #fffc5e !important;
+  color: #ffe65e !important;
 }
 .severity4 {
   font-weight: 800;
@@ -147,6 +151,7 @@ footer {
   flex-flow: row wrap;
   /* This aligns items to the end line on main-axis */
   justify-content: space-evenly;
+  margin: 25px 0px 35px 0px;
 }
 
 /* Medium screens */
@@ -163,4 +168,8 @@ footer {
     /* On small screens, we are no longer using row direction but column */
     flex-direction: column;
   }
+}
+
+.modal-content {
+    background-color: white;
 }
