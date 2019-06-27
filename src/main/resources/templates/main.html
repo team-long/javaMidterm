@@ -58,34 +58,10 @@
         <div class="col s12 m2 l2"></div>
         <div class="col s12 m8 l8">
             <ul class="collapsible popout">
-                <li>
-                    <div class="collapsible-header box" style="display: flex;">
-                        <i class="material-icons medium severity4 tooltipped" data-position="left"
-                           data-tooltip="Severity 2 escalation subject to 30 min response time.">looks_4</i>
-
-                        <span class="title mobilefriendlytext"/>
-                        <!--must add resolved class-->
-                        <a class="ticketLink">Example Ticket Title</a>
-                        </span>
-                        <div class="push">
-                            <!--Example: th:value="${ticket.id} to see detail page-->
-                            <!--Example: th:value="${ticket.id} for adding to user favorites-->
-
-                            <input name="Symbol" type="hidden">
-                            <button class="secondary-content btn2 tooltipped" data-position="top"
-                                    data-tooltip="Hint: You can only archive tickets that are resolved." type="submit" ><i class="material-icons Small">archive</i></button>
-                            </form>
-
-                            <input name="none" type="hidden">
-                            <button class="secondary-content btn2 tooltipped" data-position="top"
-                                    data-tooltip="See more details and modify this ticket." type="submit" ><i class="material-icons Small">edit</i></button>
-                        </div>
-                    </div>
                     <!--th:text: Ticket Summary-->
                     <div class="collapsible-body">Summary of your ticket</div>
                 <li th:each="ticket : ${tickets}">
-
-                        <div class="collapsible-header box" style="display: flex;" th:switch="${ticket.getTicketLvl().name()}">
+                        <div th:classappend="${ticket.archived} ? archived : emptyclass" class="collapsible-header box" style="display: flex;" th:switch="${ticket.getTicketLvl().name()}">
                         <i th:case="LOW" class="material-icons medium severity4 tooltipped" data-position="left"
                            data-tooltip="Severity 2 escalation subject to 30 min response time.">looks_4</i>
                         <i th:case="MEDIUM" class="material-icons medium severity3 tooltipped" data-position="left"
@@ -100,15 +76,13 @@
                         <a class="ticketLink" th:href="@{/ticket/} + ${ticket.id}">
                             <span th:text="${ticket.title}"></span></a>
                         </span>
-                            <!--Example: th:value="${ticket.id} to see detail page-->
                             <input name="none" type="hidden">
-                            <button class="secondary-content waves-effect waves-light btn2 modal-trigger tooltipped push" href="#modal2" data-position="top"
-                                    data-tooltip="See more details and modify this ticket." ><i class="material-icons Small">edit</i></button>
-
+                            <button th:classappend="${ticket.archived} ? btnArchive : emptyclass" class="secondary-content waves-effect waves-light btn2 modal-trigger tooltipped push" href="#modal2" data-position="top"
+                                        data-tooltip="See more details and modify this ticket." ><i class="material-icons Small">edit</i></button>
                         <form th:action="@{/delete/ticket/} + ${ticket.id}" method="POST">
                             <!--Example: th:value="${ticket.id} for adding to user favorites-->
                             <input name="Symbol" type="hidden">
-                            <button class="secondary-content btn2 tooltipped" data-position="top"
+                            <button  th:classappend="${ticket.archived} ? btnArchive : emptyclass" class="secondary-content btn2 tooltipped" data-position="top"
                                data-tooltip="Hint: You can only archive tickets that are resolved." type="submit" ><i class="material-icons Small">archive</i></button>
                         </form>
                     </div>

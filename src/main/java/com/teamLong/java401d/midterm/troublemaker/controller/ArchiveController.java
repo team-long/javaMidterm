@@ -34,15 +34,20 @@ public class ArchiveController {
     @PostMapping("delete/ticket/{id}")
     public RedirectView deleteTicket(@PathVariable long id, Principal principal, Model model){
         Ticket ticket = ticketRepository.findById(id);
-        Archive archiveTicket = new Archive();
-        archiveTicket.setTitle(ticket.getTitle());
-        archiveTicket.setTicketLvl(ticket.getTicketLvl());
-        archiveTicket.setCreator(ticket.getCreator());
-        archiveTicket.setSummary(ticket.getSummary());
-        archiveTicket.setCreatedAt(ticket.getCreatedAt());
-        archiveRepository.save(archiveTicket);
-        if(ticket.getCreator().getUsername().equals(principal.getName())){
-            ticketRepository.deleteById(id);
+        if(ticket.isArchived() == true){
+            Archive archiveTicket = new Archive();
+            archiveTicket.setTitle(ticket.getTitle());
+            archiveTicket.setTicketLvl(ticket.getTicketLvl());
+            archiveTicket.setCreator(ticket.getCreator());
+            archiveTicket.setSummary(ticket.getSummary());
+            archiveTicket.setCreatedAt(ticket.getCreatedAt());
+            archiveRepository.save(archiveTicket);
+            if(ticket.getCreator().getUsername().equals(principal.getName())){
+                ticketRepository.deleteById(id);
+            } else {
+                throw new TicketDoesNotBelongToYou("There is only one thing we say to death. Not today.\n You do not own this ticket");
+            }
+
         } else {
             throw new TicketDoesNotBelongToYou("There is only one thing we say to death. Not today.\n You do not own this ticket");
         }

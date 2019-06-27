@@ -37,7 +37,7 @@
 
                 <li th:each="ticket : ${tickets}">
 
-                    <div class="collapsible-header box archive" style="display: flex;" th:switch="${ticket.getTicketLvl().name()}">
+                    <div class="collapsible-header box archived" style="display: flex;" th:switch="${ticket.getTicketLvl().name()}">
                         <i th:case="LOW" class="material-icons medium severity4 tooltipped" data-position="left"
                            data-tooltip="Severity 2 escalation subject to 30 min response time.">looks_4</i>
                         <i th:case="MEDIUM" class="material-icons medium severity3 tooltipped" data-position="left"

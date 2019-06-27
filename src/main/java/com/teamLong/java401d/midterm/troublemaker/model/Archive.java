@@ -87,6 +87,14 @@ public class Archive {
         this.archived = archived;
     }
 
+    public LocalDateTime getArchivedAt() {
+        return archivedAt;
+    }
+
+    public void setArchivedAt(LocalDateTime archivedAt) {
+        this.archivedAt = archivedAt;
+    }
+
     public UserAccount getCreator() {
         return creator;
     }
@@ -97,5 +105,9 @@ public class Archive {
 
     public List<Update> getUpdates() {
         return updates;
+    }
+
+    public void setUpdates(List<Update> updates) {
+        this.updates = updates;
     }
 }
