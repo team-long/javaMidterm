@@ -33,6 +33,10 @@ public class Update {
     @OnDelete(action = OnDeleteAction.CASCADE)
     Ticket ticket;
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Ticket getTicket() {
         return ticket;
     }

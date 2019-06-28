@@ -20,7 +20,7 @@ public class EmailSender {
 
     static final String FROM = "troublemakeraws@gmail.com";
 
-    public static void sendEmail(UserAccount user, Collection<String> emails, String type, Ticket ticket) {
+    public static boolean sendEmail(UserAccount user, Collection<String> emails, String type, Ticket ticket) {
         Email mail = new Email();
 
         switch (type) {
@@ -41,8 +41,6 @@ public class EmailSender {
         try {
             AmazonSimpleEmailService client =
                     AmazonSimpleEmailServiceClientBuilder.standard()
-                            // Replace US_WEST_2 with the AWS Region you're using for
-                            // Amazon SES.
                             .withRegion(Regions.US_WEST_2).build();
             SendEmailRequest request = new SendEmailRequest()
                     .withDestination(
@@ -58,9 +56,11 @@ public class EmailSender {
                     .withSource(FROM);
             client.sendEmail(request);
             System.out.println("Email sent!");
+            return true;
         } catch (Exception ex) {
             System.out.println("The email was not sent. Error message: "
                     + ex.getMessage());
+            return false;
         }
     }
 }
