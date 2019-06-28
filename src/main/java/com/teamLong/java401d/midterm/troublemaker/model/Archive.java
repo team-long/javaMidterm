@@ -22,8 +22,9 @@ public class Archive {
     @ManyToOne
     UserAccount creator;
 
-    @OneToMany()
-    public List<Update> updates;
+    // Stretch Goal to save comments to archive table
+//    @OneToMany()
+//    public List<Update> updates;
 
     public Archive(){
         this.archivedAt = LocalDateTime.now();
@@ -41,18 +42,6 @@ public class Archive {
 
     public long getId() {
         return id;
-    }
-
-    public LocalDateTime getArchivedAt() {
-        return archivedAt;
-    }
-
-    public void setArchivedAt(LocalDateTime archivedAt) {
-        this.archivedAt = archivedAt;
-    }
-
-    public void setUpdates(List<Update> updates) {
-        this.updates = updates;
     }
 
     public void setId(long id) {
@@ -99,6 +88,14 @@ public class Archive {
         this.archived = archived;
     }
 
+    public LocalDateTime getArchivedAt() {
+        return archivedAt;
+    }
+
+    public void setArchivedAt(LocalDateTime archivedAt) {
+        this.archivedAt = archivedAt;
+    }
+
     public UserAccount getCreator() {
         return creator;
     }
@@ -107,7 +104,11 @@ public class Archive {
         this.creator = creator;
     }
 
-    public List<Update> getUpdates() {
-        return updates;
-    }
+//    public List<Update> getUpdates() {
+//        return updates;
+//    }
+//
+//    public void setUpdates(List<Update> updates) {
+//        this.updates = updates;
+//    }
 }

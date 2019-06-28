@@ -207,4 +207,9 @@ Temporary Items
 **/.settings/
 
 # End of https://www.gitignore.io/api/java,macos,android,androidstudio
-**markdown-navigator.xml
+**markdown-navigator.xmlsendgrid.env
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

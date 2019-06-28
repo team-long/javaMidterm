@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link href="/css/main.css" rel="stylesheet" />
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link type="text/css" rel="stylesheet"
+          th:href="@{https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css}"
+          href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"  media="screen,projection"/>
+</head>
+<body>
+<div class="section white">
+    <div class="row container">
+        <h2 class="header">Trouble Maker: Ticket Management Application</h2>
+        <h5 class="grey-text text-darken-3 lighten-3">Team-Long's 401 Java Project</h5>
+    </div>
+</div>
+<div class="parallax-container pc2">
+    <div class="parallax"><img src="/img/para3.jpg" style="height: 1200px;"></div>
+</div>
+<div class="section white">
+    <div class="row container">
+        <h2 class="header">Get an Incident Management Best Practices, Out of the Box</h2>
+        <p class="grey-text text-darken-3 lighten-3">Offer end users multi-channel support by allowing them to create tickets via email, phone calls, and a web-based self-service portal.<br>
+            Automatically convert emails to tickets, manage and track all incidents easily with a defined process through the entire life cycle by configuring custom statuses.<br>
+            Automatically assign tickets based on technician expertise or groups for accurate, timely resolutions and prevent recurrence of incidents.<br>
+            Ensure timely resolutions by defining response and resolution SLAs with defined escalation paths.</p>
+    </div>
+</div>
+<div class="parallax-container pc2">
+    <div class="parallax"><img src="/img/para1.jpg" style="height: 800px;"></div>
+</div>
+<div class="section white">
+    <div class="row container" style="display: flex;
+  justify-content: space-between;">
+        <div class="z-depth-1 grey lighten-4 row" style="display: inline-block;
+                padding: 5px 48px 0px 48px;
+                border: 1px solid #EEE;
+                margin: 100px 0px;
+                    ">
+            <h4 style="margin: 0px 140px; color:#232f3e;">Login</h4>
+            <form action="/login" class="col s12" method="post">
+                <div th:if="${error}">
+                    <p style="color: red;" th:text="${error}"></p>
+                </div>
+                <div class='row'>
+                    <div class='col s12'>
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class='input-field col s12'>
+                        <input class='validate' type='text' name='username' id='username' />
+                        <label for='username'>Enter your username</label>
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class='input-field col s12'>
+                        <input class='validate' type='password' name='password' id='password' />
+                        <label for='password'>Enter your password</label>
+                    </div>
+                </div>
+
+                <br />
+                <center>
+                    <div class='row'>
+                        <button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect'>Login</button>
+                    </div>
+                </center>
+            </form>
+
+        </div>
+        <div style="color:#6285af; border-left: 6px solid; height: 350px; margin: 100px 100px;"></div>
+        <div>
+            <a name="registration"></a>
+
+            <div class="z-depth-1 grey lighten-4 row" style="display: inline-block;
+                padding: 5px 48px 0px 48px;
+                border: 1px solid #EEE;
+                margin: 40px 0px;
+                    ">
+                <h4 style="margin: 0px 140px; color:#232f3e;">Register</h4>
+                <form id="password-form" method="post" th:action="@{/register}" autocomplete="on">
+                    <div th:if="${errors}" th:each="error: ${errors}">
+                        <p style="color: red;"  th:text="${error}"></p>
+                    </div>
+                    <div class='row'>
+                        <div class='input-field col s12'>
+                            <label for="reg-email">Email</label>
+                            <input type='text' name="username" id="reg-email"required/>
+                        </div>
+                    </div>
+
+                    <div class='row'>
+                        <div class='input-field col s6'>
+                            <label class="login-info" for="reg-pass">Password</label>
+                            <input type='password' name="password" id="reg-pass"required/>
+                        </div>
+                        <div class='input-field col s6'>
+                            <label class="login-info" for="reg-passconf">Confirm Password</label>
+                            <input type='password' name="confirmPassword" id="reg-passconf"required/>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class='input-field col s6'>
+                            <label class="login-info" for="reg-firstname">First Name</label>
+                            <input type='text' name="firstName" id="reg-firstname" />
+                        </div>
+                        <div class='input-field col s6'>
+                            <label class="login-info" for="reg-lastname">Last Name</label>
+                            <input type='text' name="lastName" id="reg-lastname" />
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class='input-field col s12'>
+                            <label class="login-info" for="reg-team">Team Alias</label>
+                            <input type='text' name="team" id="reg-team" />
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect'>Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="parallax-container">
+    <div class="parallax"><img src="/img/para2.jpg"></div>
+</div>
+<div class="section white">
+    <div class="row container">
+        <h2 class="header">Automate Ticket Workflow Process, Improve IT Help Desk Efficiency
+        </h2>
+        <p class="grey-text text-darken-3 lighten-3">Automate every step of the ticket life cycle right from categorization to technician assignment by using business rules.
+            Make sure that no ticket is left unassigned by automatically assigning tickets to technicians based on round robin or load balancing auto assign models.
+            Communicate better with end users with automated notifications that use custom email templates.
+            Reduce the rate of repeat incidents by defining closure rules to ensure effective resolution.</p>
+    </div>
+</div>
+<footer  th:replace="fragments/footer :: footer"></footer>
+</body>
+<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script type="text/javascript" src="/javascript/style.js"></script>
+</body>
+</html>
