@@ -17,14 +17,6 @@
 
 <center class="mainheader">
     <h4>Archived Tickets</h4>
-    <!--get total ticket count-->
-    <!--<div>-->
-    <!--<div class="mobilefriendlytext">You have (<span><a th:text="${principal.tickets.size()}" class="ticketLink" href='/login'>3</a></span>) Tickets Assigned.</div>-->
-    <!--</div>-->
-
-    <!--Create ticket modal popout-->
-
-
 </center>
 
 </div>
@@ -36,7 +28,6 @@
             <ul class="collapsible popout">
 
                 <li th:each="ticket : ${tickets}">
-
                     <div class="collapsible-header box archived" style="display: flex;" th:switch="${ticket.getTicketLvl().name()}">
                         <i th:case="LOW" class="material-icons medium severity4 tooltipped" data-position="left"
                            data-tooltip="Severity 2 escalation subject to 30 min response time.">looks_4</i>
@@ -49,29 +40,12 @@
 
                         <span class="title mobilefriendlytext"/>
                         <!--must add resolved class-->
-                        <a class="ticketLink box" th:href="@{/ticket/} + ${ticket.id}">
+                        <a class="ticketLink box" href="#">
                             <span th:text="${ticket.title}"></span>
                         </a>
                         </span>
                         <p class="push"> Archived at:<span style="color: blue;" th:text="${ticket.getArchivedAt()}"></span>
                         Created at:<span style="color: blue;" th:text="${ticket.getCreatedAt()}"></span></p>
-                        <!--<form method="GET" th:action="@{/edit/} + ${ticket.id}" class="push">-->
-                            <!--&lt;!&ndash;Example: th:value="${ticket.id} to see detail page&ndash;&gt;-->
-                            <!--<input name="none" type="hidden">-->
-                            <!--<button class="secondary-content btnArchive tooltipped" data-position="top"-->
-                                    <!--data-tooltip="See more details and modify this ticket." type="submit">-->
-                                <!--<i class="material-icons Small">edit</i></button>-->
-                        <!--</form>-->
-                        <!--<form th:action="@{/delete/ticket/} + ${ticket.id}" method="POST">-->
-                            <!--&lt;!&ndash;Example: th:value="${ticket.id} for adding to user favorites&ndash;&gt;-->
-                            <!--<input name="Symbol" type="hidden">-->
-                            <!--<button class="secondary-content btnArchive tooltipped" data-position="top"-->
-                                    <!--data-tooltip="Hint: You can only archive tickets that are resolved." type="submit">-->
-                                <!--<i class="material-icons Small">archive</i></button>-->
-                        <!--</form>-->
-                    <!--</div>-->
-                    <!--th:text: Ticket Summary-->
-
                     </div>
                     <div class="collapsible-body"><span th:text="${ticket.getSummary()}"></span></div>
                 </li>

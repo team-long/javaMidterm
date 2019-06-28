@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link href="/css/aboutus.css" rel="stylesheet" />
+    <link href="/css/main.css" rel="stylesheet" />
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link type="text/css" rel="stylesheet"
+          th:href="@{https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css}"
+          href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"  media="screen,projection"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<body>
+<section  class="footerfix">
+<div class="tour about">
+    <h3>Meet the Team</h3>
+</div>
+
+<div class="members">
+    <img id="pic1" class="active" src="/img/Vinh.png" alt="Ian" height="70" width="70">
+    <img id="pic2" src="/img/Will.png" alt="Mada" class="alignnone size-full wp-image-850" height="70" width="70">
+    <img id="pic3" src="/img/Me.jpg" alt="Ninja" class="alignnone size-full wp-image-835" height="70" width="70">
+    <img id="pic4" src="/img/Doug.png" alt="Andrei" class="alignnone size-full wp-image-849" height="70" width="70">
+</div>
+
+<div class="teammate active" id="dud1">
+    <h4>Vinh Nguyen</h4>
+    <p>I have a background in Mechanical, Nuclear, and
+        Electrical Engineering alongside Software Development.
+        After completing my studies at the University of
+        Washington, I decided to pursue Software Development
+        to complement my existing skills and knowledge.</p>
+</div>
+
+<div class="teammate" id="dud2">
+    <h4>Will Fritts</h4>
+    <p>My name is William Fritts. I am a Software Developer
+        Engineer Apprentice with Amazon. I am a veteran and
+        current member of the National Guard. I’ve always had
+        an interest in software development. It stems from
+        my love of science and desire to learn new things. At
+        a young age, I fell in love with reading. As I grew
+        older, that turned into a love of learning. My main
+        interests have always been the sciences and I loved
+        reading science fiction. I’ve looked to that future
+        in those books as a guide to what we can be and have
+        wanted to help bring that future to now. I have a
+        diverse background in training. I’ve taken traditional
+        college courses, technical boot camps and pursued my
+        own online self-training. My training can help not
+        just bring the future to now for people, but for
+        businesses as well</p>
+</div>
+
+<div class="teammate" id="dud3">
+    <h4>Anthony Berry</h4>
+    <p>Anthony is a Software Developer with college and
+        coding boot camp experience. I am originally from
+        Augusta, GA, a Down South Georgia boy, and loves
+        Seattle because of the technology industries here.
+        I love the challenges coding bring and wants to be
+        a part of creating the future technologies rather
+        than just being a consumer of technology.</p>
+</div>
+
+<div class="teammate" id="dud4">
+    <h4>Doug Klemp</h4>
+    <p>
+        I'm a Software Developer with previous experience as a
+        operations manager in digital-supply chain at Amazon.
+    </p></div>
+</section>
+<div th:replace="fragments/footer :: footer"></div>
+<!--JavaScript at end of body for optimized loading-->
+<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script type="text/javascript" src="/javascript/style.js"></script>
+<script type="text/javascript" src="/javascript/aboutus.js"></script>
+</body>
+</html>
+
+
+
+

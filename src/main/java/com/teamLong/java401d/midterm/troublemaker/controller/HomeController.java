@@ -34,6 +34,11 @@ public class HomeController {
         return "redirect:/login";
     }
 
+    @RequestMapping(value = "/aboutus", method = RequestMethod.GET)
+    public String aboutus() {
+        return "aboutus";
+    }
+
     // open test route for main
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public String main(Principal user, Model model) {
