@@ -11,19 +11,22 @@
                 <li><a href="/archive">Archive</a></li>
                 <li><a href="/profile" th:text="${'Welcome, ' + principal.username}"></a></li>
                 </fragment>
+                <li><a href="/aboutus">About Us</a></li>
+                <fragment th:if="${principal}">
                 <li><a href="/potato">Logout</a></li>
                 </fragment>
             </ul>
         </div>
     </nav>
     <ul class="sidenav" id="mobile-demo">
-        <fragment th:if="${principal}">
         <li><a href="/main">Home</a></li>
         <fragment th:if="${principal}">
         <li th:if="${principal.isAdmin()}"><a href="/tickets/all">All Tickets</a></li>
-        </fragment>
         <li><a href="/archive">Archive</a></li>
         <li><a href="/profile">Profile</a></li>
+        </fragment>
+        <li><a href="/aboutus">About Us</a></li>
+        <fragment th:if="${principal}">
         <li><a href="/potato">Logout</a></li>
         </fragment>
     </ul>

@@ -42,7 +42,7 @@ public class ArchiveController {
             archiveTicket.setSummary(ticket.getSummary());
             archiveTicket.setCreatedAt(ticket.getCreatedAt());
             archiveRepository.save(archiveTicket);
-            if(ticket.getCreator().getUsername().equals(principal.getName())){
+            if(ticket.getCreator().getUsername().equals(principal.getName()) || userRepository.findByUsername(principal.getName()).isAdmin()){
                 ticketRepository.deleteById(id);
             } else {
                 throw new TicketDoesNotBelongToYou("There is only one thing we say to death. Not today.\n You do not own this ticket");
