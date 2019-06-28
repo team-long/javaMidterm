@@ -40,16 +40,15 @@ public class TroublemakerApplication {
 			if(roleRepository.findByRole("user") == null) {
 				roleRepository.save(new RoleType("user"));
 			}
-			if(userRepository.findByUsername("troublemakeraws@gmail.com") == null) {
+			if(userRepository.findByUsername("troublemakeramazon@gmail.com") == null) {
 
 				UserAccount admin = new UserAccount();
-				admin.setUsername("troublemakeraws@gmail.com");
+				admin.setUsername("troublemakeramazon@gmail.com");
 				admin.setPassword(encoder.encode("admin"));
 				admin.setConfirmPassword((encoder.encode("admin")));
 				admin.getRoleTypes().add(roleRepository.findByRole("user"));
 				admin.getRoleTypes().add(roleRepository.findByRole("admin"));
 				userRepository.save(admin);
-				userRepository.save(adminTwo);
 				Ticket ticket = new Ticket("Example Ticket: Test", Severity.HIGH, admin, "Test");
 				ticketRepository.save(ticket);
 			}

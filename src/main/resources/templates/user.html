@@ -1,39 +1,57 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
     <link href="/css/main.css" rel="stylesheet" />
+    <link href="/css/ticket-detail.css" rel="stylesheet" />
+    <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css}"  media="screen,projection"/>
-    <title>Generate Ticket</title>
 </head>
 <body>
-    <div th:replace="fragments/header :: header"></div>
-    <center>
-        <div id="profile">
-            <h2>Your Profile</h2>
-            <p th:text="${'Email: ' + principal.username}"></p>
-            <p th:text="${'First Name: ' + principal.firstName}"></p>
-            <p th:text="${'Last Name: ' + principal.lastName}"></p>
-            <p th:text="${'Team: ' + principal.team}"></p>
+<div th:replace="fragments/header :: header"></div>
+<section id="detailpage" class="footerfix">
+    <header class="site-header">
+        <h4>User Profile</h4>
+    </header>
+    <fieldset class="form__fields"id="page-info">
 
-            <h4 th:if="${principal.isAdmin()}">Create Admin Role</h4>
+        <article class="field">
+            <ul>
+                <li>Email:   <span class="textspecial" th:text="${principal.username}"></span></li>
+                <li>First Name:   <span class="textspecial" th:text="${principal.firstName}"></span></li>
+                <li>Last Name:   <span class="textspecial" th:text="${principal.lastName}"></span></li>
+                <li>Team:   <span class="textspecial" th:text="${principal.team}"></span></li>
+
+            </ul>
+        </article>
+        <article class="field">
+            <h5 th:if="${principal.isAdmin()}">Apply Administrative Profile:</h5>
             <form method="post" action="/profile" th:if="${principal.isAdmin()}">
                 <select name="makeUserAdmin" style="display: block; width: 50%;">
                     <fragment th:each="user: ${users}" >
-                    <option th:if="${!user.isAdmin()}" th:value="${user.username}" th:text="${user.username}"></option>
-                    <option th:if="${user.isAdmin()}" th:value="${user.username}" th:text="${user.username + ' (Admin)'}"></option>
+                        <option th:if="${!user.isAdmin()}" th:value="${user.username}" th:text="${user.username}"></option>
+                        <option th:if="${user.isAdmin()}" th:value="${user.username}" th:text="${user.username + ' (Admin)'}"></option>
                     </fragment>
                 </select>
-                <input type="submit" value="Make Admin"/>
+                <input type="submit" class="modal-close waves-effect waves-green btn" value="Apply" style="margin:25px 0px;">
             </form>
-        </div>
+        </article>
+        <article class="field">
+            <div>
 
-    </center>
+            </div>
+        </article>
+    </fieldset>
+</section>
+</article>
+</fieldset>
 
-    <div th:replace="fragments/footer :: footer"></div>
+
+<div th:replace="fragments/footer :: footer"></div>
 <!--JavaScript at end of body for optimized loading-->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
