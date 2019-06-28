@@ -61,13 +61,17 @@ Database: PostgreSQL with AWS RDS as host
 - [TEST](./src/test/java/com/teamLong/java401d/midterm/troublemaker/TroublemakerApplicationTests.java)
 
 ## Work Flow and Process
--
+- Ensure Database was connected to the Application
+- Login Authentication
+- Logic for the Models/Controllers
+- Deploy to AWS
 
 ## Success
--
+- Success completed the application we wanted to build
+- Complete 90% of stretch goals.
 
 ## Growth
--
+- Managing our priorities as far as Features and Stretch Goals.
 
 ## API
 - ```@RequestMapping(value = "/", method = RequestMethod.GET)```
