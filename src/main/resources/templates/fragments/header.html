@@ -19,8 +19,8 @@
         </div>
     </nav>
     <ul class="sidenav" id="mobile-demo">
-        <fragment th:if="${principal}">
         <li><a href="/main">Home</a></li>
+        <fragment th:if="${principal}">
         <li th:if="${principal.isAdmin()}"><a href="/tickets/all">All Tickets</a></li>
         <li><a href="/archive">Archive</a></li>
         <li><a href="/profile">Profile</a></li>
