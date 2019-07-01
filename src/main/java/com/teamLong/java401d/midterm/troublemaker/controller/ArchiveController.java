@@ -58,10 +58,18 @@ public class ArchiveController {
     public String main(Principal user, Model model) {
         UserAccount currentUser = (UserAccount)((UsernamePasswordAuthenticationToken) user).getPrincipal();
         model.addAttribute("principal",currentUser);
-        Iterable<Archive> archive = archiveRepository.findAll();
-        model.addAttribute("tickets", archive);
-        List<Enum> enumValues = new ArrayList<Enum>(EnumSet.allOf(Severity.class));
-        model.addAttribute("enumValues", enumValues);
+        if(userRepository.findByUsername(user.getName()).isAdmin()){
+            Iterable<Archive> archive = archiveRepository.findAll();
+            model.addAttribute("tickets", archive);
+            List<Enum> enumValues = new ArrayList<Enum>(EnumSet.allOf(Severity.class));
+            model.addAttribute("enumValues", enumValues);
+        } else {
+            Iterable<Archive> archive = archiveRepository.findAllByCreatorId(currentUser.getId());
+            model.addAttribute("tickets", archive);
+            List<Enum> enumValues = new ArrayList<Enum>(EnumSet.allOf(Severity.class));
+            model.addAttribute("enumValues", enumValues);
+        }
+
         return "archive";
     }
 }
