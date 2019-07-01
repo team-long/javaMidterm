@@ -84,7 +84,7 @@ class Email {
     }
 }
 
-//better messages?
+//better messages? use stringbuilder?
 class IntroEmail extends Email {
 
 
