@@ -59,3 +59,7 @@ public class TroublemakerApplication {
 
 
 }
+// - We could have combined the Archive and ticket model together. Instead of creating a new table for archive we could
+//have just return the if archive was true from the ticket model.
+
+// - We should have used GetMapping and PostMapping instead of Request Mapping since it is no longer in use.
