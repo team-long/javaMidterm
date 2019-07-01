@@ -105,10 +105,10 @@ public class Archive {
     }
 
 //    public List<Update> getUpdates() {
-//        return updates;
-//    }
-//
-//    public void setUpdates(List<Update> updates) {
-//        this.updates = updates;
-//    }
+////        return updates;
+////    }
+////
+////    public void setUpdates(List<Update> updates) {
+////        this.updates = updates;
+////    }
 }
