@@ -48,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutUrl("/potato")
         ;
-
+    //can this be incorporated in above?
         http.formLogin().defaultSuccessUrl("/main", true);
     }
 

@@ -69,6 +69,7 @@ public class TicketController {
         ticketRepository.save(ticket);
         model.addAttribute("ticket", ticket);
         List<String> emails = new ArrayList<>();
+        //seems convoluted just to get email list - better way via the model?
         roleRepository.findByRole("admin").getUserAccounts().forEach(userAccount -> emails.add(userAccount.getUsername()));
         EmailSender.sendEmail(user, emails, "CREATE", ticket);
         return new RedirectView("/main");
@@ -78,6 +79,7 @@ public class TicketController {
     //all tickets user route
     @GetMapping("/tickets/all")
     public String getAllTickets(Principal principal, Model model){
+        //Did we need to pass on full user model? duplication of efforts here.
         UserAccount loggedInUser = userRepository.findByUsername(principal.getName());
         model.addAttribute("loggedInUser", loggedInUser);
         Iterable<Ticket> tickets = ticketRepository.findAll();
@@ -96,7 +98,7 @@ public class TicketController {
         model.addAttribute("enumValues", enumValues);
         return "edit";
     }
-
+    //put all of the incoming individual parameters in a model?
     @PostMapping("/tickets/edit/{id}")
     public RedirectView updateTicket(@PathVariable long id, String title, String ticketLvl, String summary, Principal principal, Model model){
         Ticket ticket = ticketRepository.findById(id);
@@ -131,7 +133,7 @@ public class TicketController {
         return "redirect:/ticket/"+ticketId;
     }
 }
-
+//Do we really need this? safety check might not be necessary.
 @ResponseStatus(value = HttpStatus.FORBIDDEN)
 class TicketDoesNotBelongToYou extends RuntimeException {
     public TicketDoesNotBelongToYou(String string){
